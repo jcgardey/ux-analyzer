@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from evaluations.models import UserSession
+from evaluations.models import UserSession, Version
 from evaluations.micro_measures_grabbers import TextInputGrabber, SelectInputGrabber, RadiosetGrabber, AnchorGrabber, DatepickerGrabber
 from evaluations.serializers import UserSessionSerializer
 
@@ -15,8 +15,8 @@ class CreateUserSessionAPI(APIView):
         'DateSelect': SelectInputGrabber()
     }
 
-    def post(self, request):
-        user_session = UserSession.objects.create()
+    def post(self, request, token):
+        user_session = Version.objects.get(token=token).user_sessions.create()
         valid_widget_logs = [ widget_log for widget_log in request.data['widget_logs'] if self.grabbers[widget_log['widgetType']].is_log_valid(widget_log) ]
         for widget_log in valid_widget_logs:
             user_session.widget_logs.create(

@@ -15,4 +15,9 @@ class CreateVersionAPI(APIView):
 
     def post(self, request):
         version = Version.objects.create(version_name=request.data['name'], token=self.generate_version_token())
-        return Response(VersionSerializer(version).data, status=status.HTTP_201_CREATED)
+        return Response({'version_name': version.version_name, 'token': version.token}, status=status.HTTP_201_CREATED)
+
+class ListVersionsAPI(APIView):
+
+    def get(self, request):
+        return Response(VersionSerializer(Version.objects.all(), many=True).data)

@@ -20,6 +20,14 @@ class UserSessionSerializer(serializers.ModelSerializer):
 
 
 class VersionSerializer(serializers.ModelSerializer):
+    user_interaction_effort = serializers.SerializerMethodField()
+    user_sessions_count = serializers.SerializerMethodField()
     class Meta:
         model = Version
-        fields = ('version_name', 'token')
+        fields = ('id', 'version_name', 'token' , 'user_interaction_effort', 'user_sessions_count')
+    
+    def get_user_interaction_effort(self, version):
+        return version.get_user_interaction_effort()
+    
+    def get_user_sessions_count(self, version):
+        return version.get_user_sessions_count()

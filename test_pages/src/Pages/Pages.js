@@ -21,7 +21,7 @@ export const Pages = () => {
     if (window.screenRecorder?.recording) {
       window.screenRecorder.stopRecording(true);
       window.screenRecorder.sendScreencast(
-        'http://localhost:8002/api/user_session/new',
+        'http://localhost:8002/api/version/ulpd7e4xp7uhmcfn/user_session/new',
         'cors'
       );
       window.screenRecorder.modal.initialize();

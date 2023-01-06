@@ -8,7 +8,13 @@ class Version(models.Model):
 
     version_name = models.CharField(max_length=255)
     token = models.CharField(max_length=16)
+
+    def get_user_interaction_effort(self):
+        return np.mean( np.array([session.get_user_interaction_effort() for session in self.user_sessions.all()]) )
     
+    def get_user_sessions_count(self):
+        return self.user_sessions.all().count()
+
 class UserSession(models.Model):
 
     version = models.ForeignKey(Version, on_delete=models.CASCADE, related_name='user_sessions')
