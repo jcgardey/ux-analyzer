@@ -1,10 +1,14 @@
-import { VersionList } from './components/VersionsList';
+import { NavBar } from './components/NavBar';
+import { VersionsPage } from './pages/VersionsPage';
 
 function App() {
   return (
-    <div className="App">
-      <VersionList />
-    </div>
+    <>
+      <NavBar />
+      <div className="w-4/5 mx-auto">
+        <VersionsPage />
+      </div>
+    </>
   );
 }
 

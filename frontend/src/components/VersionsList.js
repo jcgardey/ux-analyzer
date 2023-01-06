@@ -10,7 +10,7 @@ export const VersionList = () => {
   }, []);
 
   return (
-    <div className="grid gap-3 grid-cols-4">
+    <div className="grid gap-3 grid-cols-4 my-2">
       {versions.map((version) => (
         <VersionItem key={version.id} version={version} />
       ))}
