@@ -1,0 +1,119 @@
+#recorder-container {
+    top: 0;
+    right: 10px;
+    position: fixed;
+    z-index: 99999;
+    height: 4em;
+    width: 12em;
+    margin: 4px;
+    padding: 4px;
+    border-radius: 3px;
+    border:0;
+    box-shadow: 0 0 5px #888888;
+    background-color: white;
+    padding: 5px; 
+}
+
+#recorder-container h5 {
+    color : black;
+    font-family : "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size : 16px;
+    font-weight : 600;
+    text-align : center;
+    margin : 4px auto;
+}
+
+#recorder-container button {
+    border: none;
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-size: 15px;
+    color: white;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#recorder-container button.start {
+    background-color: #00a32e;
+}
+#recorder-container button.stop {
+    background-color: #f73636;
+}
+
+#recorder-container button:not([disabled]):hover {
+    cursor: pointer;
+}
+
+#recorder-container button.start:not([disabled]):hover {
+    background-color: #02c93b;
+}
+
+#recorder-container button.stop:not([disabled]):hover {
+    background-color: #f08181;
+}
+
+#recorder-container button[disabled] {
+    background-color: #e3e3e3;
+    color: #a6a4a4;
+}
+
+#recorder-questionnaire {
+    position: fixed;
+    z-index: 99999;
+    top: 15%;
+    left: 25%;
+    box-shadow: 0 0 10px #888888;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 800px;
+}
+
+#recorder-questionnaire .recorder-title {
+    font-size: 20px;
+}
+
+#recorder-questionnaire .recorder-radio {
+    margin: 0 40px;
+}
+
+#recorder-questionnaire .question-container {
+    margin: 40px 0;
+}
+
+#recorder-questionnaire .recorder-question {
+    font-size: 18px;
+    display: block;
+}
+
+#recorder-questionnaire .recorder-label {
+    display: inline-block;
+    max-width: 100px;
+}
+
+#recorder-questionnaire .recorder-input {
+    height: 30px;
+    width: 40%;
+}
+
+#recorder-questionnaire .questionnaire-button {
+    border : none;
+    background-color : #007bff;
+    color : white;
+    padding : 7px 14px;
+    border-radius : 5px;
+    font-size: 16px;
+}
+
+#recorder-questionnaire .questionnaire-button:hover {
+    cursor: pointer;
+}
+
+#recorder-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    background-color: rgba(0, 0, 0, 0.6);
+}

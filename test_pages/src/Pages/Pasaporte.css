@@ -1,0 +1,16 @@
+.passport-section {
+    border: solid 1px #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.passport-section-title {
+    font-weight: bold;
+}
+
+button[type='submit'].passport {
+    background-color: #37BBED;
+    color: white;
+    border-radius: 20px;
+  }
