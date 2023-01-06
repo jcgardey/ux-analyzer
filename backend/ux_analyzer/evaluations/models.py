@@ -4,7 +4,14 @@ from .micro_measures_grabbers import grabbers
 from prediction_models.train_models import prediction_models
 import numpy as np
 
+class Version(models.Model):
+
+    version_name = models.CharField(max_length=255)
+    token = models.CharField(max_length=16)
+    
 class UserSession(models.Model):
+
+    version = models.ForeignKey(Version, on_delete=models.CASCADE, related_name='user_sessions')
     
     def get_user_interaction_effort(self):
         predictions = np.array([ widget_log.get_user_interaction_effort() for widget_log in self.widget_logs.all() ])
@@ -29,4 +36,7 @@ class WidgetLog(models.Model):
     def get_user_interaction_effort(self):
         micro_measures_normalized = prediction_models[self.widget_type].scaler.transform(  np.array(grabbers[self.widget_type].get_measures_for_prediction(self.micro_measures)).reshape(1,-1) )
         return prediction_models[self.widget_type].predict( micro_measures_normalized ) 
+
+
+
 

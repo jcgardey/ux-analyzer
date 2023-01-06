@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import WidgetLog, UserSession
+from .models import WidgetLog, UserSession, Version
 
 
 class WidgetLogSerializer(serializers.ModelSerializer):
@@ -17,3 +17,9 @@ class UserSessionSerializer(serializers.ModelSerializer):
     
     def get_user_interaction_effort(self, user_session):
         return user_session.get_user_interaction_effort()
+
+
+class VersionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Version
+        fields = ('version_name', 'token')
