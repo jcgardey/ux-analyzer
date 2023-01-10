@@ -1,10 +1,13 @@
 export const InteractionEffort = ({ score }) => {
-  const colors = { 1: 'green', 2: 'yellow', 3: 'orange', 4: 'red' };
+  const colors = {
+    1: 'bg-green-800',
+    2: 'bg-yellow-800',
+    3: 'bg-orange-800',
+    4: 'bg-red-800',
+  };
 
   return (
-    <div
-      className={`mx-auto my-1 w-1/3 bg-${colors[parseInt(score)]}-800 rounded`}
-    >
+    <div className={`mx-auto my-1 w-1/3 ${colors[parseInt(score)]} rounded`}>
       <p className="text-center text-3xl text-white font-bold">{score}</p>
     </div>
   );
