@@ -1,4 +1,4 @@
-import { VersionList } from '../components/VersionsList';
+import { VersionList } from '../components/VersionList/VersionList';
 
 export const VersionsPage = () => (
   <>

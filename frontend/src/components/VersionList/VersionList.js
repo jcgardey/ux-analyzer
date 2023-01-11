@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllVersions } from '../services/version';
+import { getAllVersions } from '../../services/version';
 import { VersionItem } from './VersionItem';
 
 export const VersionList = () => {
