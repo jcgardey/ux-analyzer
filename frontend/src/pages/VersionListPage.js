@@ -4,7 +4,7 @@ import { Modal } from '../components/Modal/Modal';
 import { CreateVersion } from '../components/VersionList/CreateVersion';
 import { VersionList } from '../components/VersionList/VersionList';
 
-export const VersionsPage = () => {
+export const VersionListPage = () => {
   const [showVersionModal, setShowVersionModal] = useState(false);
 
   return (
