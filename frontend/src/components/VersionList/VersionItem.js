@@ -9,7 +9,12 @@ export const VersionItem = ({ version }) => (
       </h3>
       <div className="my-1.5 mx-auto w-3/4">
         <p className="text-center text-gray-800 italic">Interaction Effort</p>
-        <InteractionEffort score={version.user_interaction_effort} />
+        <div className="my-1 mx-auto w-1/3">
+          <InteractionEffort
+            className={'text-3xl'}
+            score={version.user_interaction_effort}
+          />
+        </div>
       </div>
       <div className="my-1.5">
         <p className="text-center text-gray-600">
