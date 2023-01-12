@@ -5,6 +5,8 @@ from evaluations.models import UserSession, Version
 from evaluations.micro_measures_grabbers import TextInputGrabber, SelectInputGrabber, RadiosetGrabber, AnchorGrabber, DatepickerGrabber
 from evaluations.serializers import UserSessionSerializer
 
+from datetime import timedelta
+
 class CreateUserSessionAPI(APIView):
     grabbers = {
         'TextInput': TextInputGrabber(),
@@ -16,7 +18,7 @@ class CreateUserSessionAPI(APIView):
     }
 
     def post(self, request, token):
-        user_session = Version.objects.get(token=token).user_sessions.create()
+        user_session = Version.objects.get(token=token).user_sessions.create(session_id=request.data['id'], time=timedelta(milliseconds=request.data['time']))
         valid_widget_logs = [ widget_log for widget_log in request.data['widget_logs'] if self.grabbers[widget_log['widgetType']].is_log_valid(widget_log) ]
         for widget_log in valid_widget_logs:
             user_session.widget_logs.create(

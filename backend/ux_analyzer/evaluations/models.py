@@ -10,7 +10,7 @@ class Version(models.Model):
     token = models.CharField(max_length=16)
 
     def get_user_interaction_effort(self):
-        return np.mean( np.array([session.get_user_interaction_effort() for session in self.user_sessions.all()]) )
+        return np.mean( np.array([session.get_user_interaction_effort() for session in self.user_sessions.all()]) ) if self.get_user_sessions_count() > 0 else None
     
     def get_user_sessions_count(self):
         return self.user_sessions.all().count()
@@ -18,6 +18,9 @@ class Version(models.Model):
 class UserSession(models.Model):
 
     version = models.ForeignKey(Version, on_delete=models.CASCADE, related_name='user_sessions')
+    date = models.DateTimeField(auto_now=True)
+    time = models.DurationField(null=True)
+    session_id = models.CharField(max_length=50)
     
     def get_user_interaction_effort(self):
         predictions = np.array([ widget_log.get_user_interaction_effort() for widget_log in self.widget_logs.all() ])
