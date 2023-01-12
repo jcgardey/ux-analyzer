@@ -21,3 +21,8 @@ class ListVersionsAPI(APIView):
 
     def get(self, request):
         return Response(VersionSerializer(Version.objects.all(), many=True).data)
+
+class GetVersionAPI(APIView):
+
+    def get(self, request, id):
+        return Response(VersionSerializer(Version.objects.get(pk=id)).data)
