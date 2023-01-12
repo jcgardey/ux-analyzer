@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { PageTitle } from '../components/Common/PageTitle';
 import { Sections } from '../components/Common/Sections';
@@ -33,7 +32,10 @@ export const VersionPage = () => {
   return (
     <>
       <PageTitle>{version.version_name}</PageTitle>
-      <Sections sections={mainSections} defaultSection="Stats" />
+      <Sections
+        sections={mainSections}
+        defaultSection={version.user_sessions_count > 0 ? 'Stats' : 'Setup'}
+      />
     </>
   );
 };
