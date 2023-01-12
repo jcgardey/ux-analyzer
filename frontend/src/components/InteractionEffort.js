@@ -9,10 +9,10 @@ export const InteractionEffort = ({ className, score }) => {
   return (
     <p
       className={`${className} p-1 text-center text-white font-bold ${
-        colors[parseInt(score)]
+        score !== null ? colors[parseInt(score)] : 'bg-gray-400'
       } rounded`}
     >
-      {score}
+      {score !== null ? score : '--'}
     </p>
   );
 };
