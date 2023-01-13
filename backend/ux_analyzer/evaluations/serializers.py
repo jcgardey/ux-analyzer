@@ -13,10 +13,10 @@ class UserSessionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserSession
-        fields = ('user_interaction_effort','widget_logs',)
+        fields = ('user_interaction_effort','widget_logs', 'session_id', 'time', 'date')
     
     def get_user_interaction_effort(self, user_session):
-        return user_session.get_user_interaction_effort()
+        return round(user_session.get_user_interaction_effort(), 1)
 
 
 class VersionSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class VersionSerializer(serializers.ModelSerializer):
         fields = ('id', 'version_name', 'token' , 'user_interaction_effort', 'user_sessions_count')
     
     def get_user_interaction_effort(self, version):
-        return version.get_user_interaction_effort()
+        return round(version.get_user_interaction_effort(),1) if version.get_user_interaction_effort() else None
     
     def get_user_sessions_count(self, version):
         return version.get_user_sessions_count()

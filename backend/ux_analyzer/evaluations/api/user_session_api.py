@@ -38,6 +38,12 @@ class GetUserSessionAPI(APIView):
 
     def get(self, request, id):
         return Response(UserSessionSerializer(UserSession.objects.get(pk=id)).data)
+
+
+class GetAllUserSessionsOfVersionApi(APIView):
+
+    def get(self, request, id):
+        return Response(UserSessionSerializer(Version.objects.get(id=id).user_sessions.all(), many=True).data)
         
     
     
