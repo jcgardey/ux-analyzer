@@ -1,6 +1,10 @@
 from rest_framework import serializers
-from .models import WidgetLog, UserSession, Version
+from .models import Evaluation, WidgetLog, UserSession, Version
 
+class EvaluationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Evaluation
+        fields = ('evaluation_name', 'creation_date')
 
 class WidgetLogSerializer(serializers.ModelSerializer):
     class Meta:
