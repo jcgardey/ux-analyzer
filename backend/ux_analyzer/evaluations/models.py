@@ -14,6 +14,9 @@ class Version(models.Model):
     
     def get_user_sessions_count(self):
         return self.user_sessions.all().count()
+    
+    def get_widgets(self):
+        return WidgetLog.objects.filter(user_session__version_id=self.id).values('widget_url', 'widget_xpath', 'widget_type').distinct()
 
 class UserSession(models.Model):
 

@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from evaluations.models import Version
+from evaluations.models import Version, WidgetLog
 from evaluations.serializers import VersionSerializer
 
 import random
@@ -26,3 +26,8 @@ class GetVersionAPI(APIView):
 
     def get(self, request, id):
         return Response(VersionSerializer(Version.objects.get(pk=id)).data)
+
+class GetVersionWidgetsAPI(APIView):
+    
+    def get(self, request, id):
+        return Response(Version.objects.get(pk=id).get_widgets())
