@@ -16,7 +16,14 @@ class Version(models.Model):
         return self.user_sessions.all().count()
     
     def get_widgets(self):
-        return WidgetLog.objects.filter(user_session__version_id=self.id).values('widget_url', 'widget_xpath', 'widget_type').distinct()
+        widgets = WidgetLog.objects.filter(user_session__version_id=self.id).values('widget_label','widget_url', 'widget_xpath', 'widget_type').distinct()
+        for widget in widgets:
+            widget['user_interaction_effort'] = round(self.get_user_interaction_effort_on_widget(widget['widget_url'], widget['widget_xpath']),1)
+        return widgets
+    
+    def get_user_interaction_effort_on_widget(self, widget_url, widget_xpath):
+        widget_logs = WidgetLog.objects.filter(user_session__version=self, widget_url=widget_url, widget_xpath=widget_xpath)
+        return np.mean( np.array([ widget_log.get_user_interaction_effort() for widget_log in widget_logs]) )
 
 class UserSession(models.Model):
 
@@ -27,7 +34,6 @@ class UserSession(models.Model):
     
     def get_user_interaction_effort(self):
         predictions = np.array([ widget_log.get_user_interaction_effort() for widget_log in self.widget_logs.all() ])
-        print(predictions)
         return np.mean(predictions)
 
 class WidgetLog(models.Model):
@@ -39,6 +45,7 @@ class WidgetLog(models.Model):
         ('DateSelect', 'DateSelect'), 
         ('RadioSet', 'RadioSet'), 
     ]
+    widget_label = models.CharField(max_length=255)
     widget_xpath = models.CharField(max_length=255)
     widget_type = models.CharField(max_length=255, choices=WIDGET_TYPES)
     widget_url = models.URLField(max_length=255)

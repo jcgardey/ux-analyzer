@@ -5,7 +5,7 @@ from .models import WidgetLog, UserSession, Version
 class WidgetLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = WidgetLog
-        fields = ('widget_url', 'widget_xpath','widget_type', 'micro_measures')
+        fields = ('widget_label','widget_url', 'widget_xpath','widget_type', 'micro_measures')
 
 class UserSessionSerializer(serializers.ModelSerializer):
     widget_logs = WidgetLogSerializer(many=True)
