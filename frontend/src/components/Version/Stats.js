@@ -19,7 +19,8 @@ export const Stats = ({ version }) => (
         <span className="font-bold">{version.user_sessions_count}</span>
       </p>
       <p className="text-lg">
-        Interactive Widgets: <span className="font-bold">--</span>
+        Interactive Widgets:{' '}
+        <span className="font-bold">{version.widgets_count}</span>
       </p>
     </div>
   </div>
