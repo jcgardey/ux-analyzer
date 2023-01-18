@@ -4,6 +4,7 @@ import { Sections } from '../components/Common/Sections';
 import { Setup } from '../components/Version/Setup';
 import { Stats } from '../components/Version/Stats';
 import { UserSessions } from '../components/Version/UserSessions';
+import { Widgets } from '../components/Version/Widgets';
 
 export const VersionPage = () => {
   const version = useLoaderData();
@@ -24,8 +25,8 @@ export const VersionPage = () => {
     {
       name: 'Widgets',
       show: version.user_sessions_count > 0,
-      element: Stats,
-      props: { version },
+      element: Widgets,
+      props: { versionId: version.id },
     },
     { name: 'Setup', show: true, element: Setup, props: {} },
   ];

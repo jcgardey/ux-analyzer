@@ -1,9 +1,9 @@
 export const InteractionEffort = ({ className, score }) => {
   const colors = {
-    1: 'bg-green-800',
-    2: 'bg-yellow-800',
-    3: 'bg-orange-800',
-    4: 'bg-red-800',
+    1: 'bg-green-600',
+    2: 'bg-yellow-600',
+    3: 'bg-orange-600',
+    4: 'bg-red-600',
   };
 
   return (
