@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from evaluations.models import Version, WidgetLog
+from evaluations.models import Evaluation, Version, WidgetLog
 from evaluations.serializers import VersionSerializer
 
 import random
@@ -13,14 +13,14 @@ class CreateVersionAPI(APIView):
     def generate_version_token(self):
         return ''.join(random.choices(string.ascii_lowercase + string.digits, k=16))
 
-    def post(self, request):
-        version = Version.objects.create(version_name=request.data['name'], token=self.generate_version_token())
+    def post(self, request, evaluation_id):
+        version = Evaluation.objects.get(pk=evaluation_id).versions.create(version_name=request.data['name'], token=self.generate_version_token())
         return Response({'version_name': version.version_name, 'token': version.token}, status=status.HTTP_201_CREATED)
 
 class ListVersionsAPI(APIView):
 
-    def get(self, request):
-        return Response(VersionSerializer(Version.objects.all(), many=True).data)
+    def get(self, request, evaluation_id):
+        return Response(VersionSerializer(Version.objects.filter(evaluation=evaluation_id), many=True).data)
 
 class GetVersionAPI(APIView):
 
