@@ -3,7 +3,7 @@ export const Grid = ({ children }) => (
 );
 
 export const GridItem = ({ children }) => (
-  <div className="flex text-gray-700 font-medium border-b last:border-0 border-gray-200 py-4">
+  <div className="flex hover:bg-gray-50 text-gray-700 font-medium border-b last:border-0 border-gray-200 py-4">
     {children}
   </div>
 );
