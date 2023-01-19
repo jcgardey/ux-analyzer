@@ -11,6 +11,12 @@ class CreateEvaluationAPI(APIView):
         evaluation = Evaluation.objects.create(evaluation_name=request.data['evaluation_name'])
         return Response(EvaluationSerializer(evaluation).data, status=status.HTTP_201_CREATED)
 
+class DeleteEvaluationAPI(APIView):
+    
+    def delete(self, request, id):
+        return Response(Evaluation.objects.get(pk=id).delete())
+
+
 class ListEvaluationsApi(APIView):
 
     def get(self, request):
