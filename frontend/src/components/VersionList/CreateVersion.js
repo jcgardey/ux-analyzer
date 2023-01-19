@@ -1,13 +1,18 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { createVersion } from '../../services/version';
 import { PrimaryButton } from '../Button/Button';
 
-export const CreateVersion = () => {
+export const CreateVersion = ({ onVersionCreated }) => {
   const [versionName, setVersionName] = useState('');
+
+  const { evaluationId } = useParams();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createVersion(versionName);
+    createVersion(evaluationId, versionName).then((res) =>
+      onVersionCreated(res.data)
+    );
   };
 
   return (

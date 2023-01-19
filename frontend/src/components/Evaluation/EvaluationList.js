@@ -10,8 +10,8 @@ export const EvaluationList = ({ evaluations, onDelete }) => {
         <div className="w-1/3"></div>
       </GridHeader>
       {evaluations.map((evaluation, i) => (
-        <Link to={`/versions`}>
-          <GridItem key={i}>
+        <Link key={i} to={`/evaluation/${evaluation.id}/version`}>
+          <GridItem>
             <p className="w-1/3 mx-2">{evaluation.evaluation_name}</p>
             <p className="w-1/3 mx-2">
               {new Date(evaluation.creation_date).toLocaleDateString()}

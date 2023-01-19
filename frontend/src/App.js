@@ -2,7 +2,7 @@ import { NavBar } from './components/NavBar';
 import { VersionListPage } from './pages/VersionListPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { VersionPage } from './pages/VersionPage';
-import { getVersion } from './services/version';
+import { getEvaluationVersions, getVersion } from './services/version';
 import { EvaluationListPage } from './pages/EvaluationListPage';
 
 function App() {
@@ -12,8 +12,10 @@ function App() {
       element: <EvaluationListPage />,
     },
     {
-      path: '/versions',
+      path: '/evaluation/:evaluationId/version',
       element: <VersionListPage />,
+      loader: ({ params }) =>
+        getEvaluationVersions(params.evaluationId).then((res) => res.data),
     },
     {
       path: '/version/:id',
