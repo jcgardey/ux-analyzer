@@ -19,7 +19,7 @@ export const VersionListPage = () => {
   return (
     <>
       <PageTitle>Versions</PageTitle>
-      <div className="flex justify-end my-5">
+      <div className="flex my-5">
         <PrimaryButton onClick={() => setShowVersionModal(true)}>
           New Version
         </PrimaryButton>
