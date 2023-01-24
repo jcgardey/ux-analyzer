@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { VersionPage } from './pages/VersionPage';
 import { getEvaluationVersions, getVersion } from './services/version';
 import { EvaluationListPage } from './pages/EvaluationListPage';
+import { Footer } from './components/Footer';
 
 function App() {
   const router = createBrowserRouter([
@@ -27,9 +28,10 @@ function App() {
   return (
     <>
       <NavBar />
-      <div className="w-4/5 mx-auto">
+      <div className="w-4/5 mx-auto" style={{ minHeight: '70vh' }}>
         <RouterProvider router={router} />
       </div>
+      <Footer />
     </>
   );
 }
