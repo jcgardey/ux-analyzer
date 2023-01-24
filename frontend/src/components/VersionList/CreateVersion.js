@@ -2,31 +2,63 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { createVersion } from '../../services/version';
 import { PrimaryButton } from '../Button/Button';
+import { Input, Label } from '../Common/Form';
 
 export const CreateVersion = ({ onVersionCreated }) => {
   const [versionName, setVersionName] = useState('');
+  const [url, setUrl] = useState('');
+
+  const [urls, setUrls] = useState([]);
 
   const { evaluationId } = useParams();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createVersion(evaluationId, versionName).then((res) =>
+    createVersion(evaluationId, versionName, urls).then((res) =>
       onVersionCreated(res.data)
     );
   };
 
+  const addUrl = () => {
+    if (url !== '') {
+      setUrls([...urls, url]);
+      setUrl('');
+    }
+  };
+
+  const deleteUrl = (url) => setUrls(urls.filter((u) => u !== url));
+
   return (
     <form onSubmit={onSubmit}>
-      <div className="my-4">
-        <label className="text-gray-700 font-medium block text-lg">Name</label>
-        <input
-          type={'text'}
+      <div className="my-8">
+        <Label>Name</Label>
+        <Input
           value={versionName}
-          className="w-full h-10 border border-sky-700 rounded text-gray-700 px-2 py-0.5"
           onChange={(e) => setVersionName(e.target.value)}
         />
       </div>
-      <div className="my-4">
+      <div className="my-8">
+        <Label>URLs</Label>
+        <Input
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          onBlur={addUrl}
+        />
+        {urls.map((url) => (
+          <div className="my-4">
+            <span className="bg-gray-300 text-gray-900 rounded-2xl p-2">
+              {url}
+            </span>
+            <button
+              className="mx-2 text-red-500"
+              onClick={() => deleteUrl(url)}
+            >
+              <i className="fa-solid fa-lg fa-xmark"></i>
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="my-8">
         <PrimaryButton type="submit">Create</PrimaryButton>
       </div>
     </form>
