@@ -34,6 +34,15 @@ export const VersionPage = () => {
   return (
     <>
       <PageTitle>{version.version_name}</PageTitle>
+      <div className="my-4">
+        {version.urls.map((url) => (
+          <div>
+            <span className="bg-gray-300 text-lg text-gray-900 rounded-2xl p-2">
+              {url}
+            </span>
+          </div>
+        ))}
+      </div>
       <Sections
         sections={mainSections}
         defaultSection={version.user_sessions_count > 0 ? 'Stats' : 'Setup'}
