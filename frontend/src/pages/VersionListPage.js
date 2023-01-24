@@ -10,7 +10,8 @@ import { deleteVersion } from '../services/version';
 export const VersionListPage = () => {
   const [showVersionModal, setShowVersionModal] = useState(false);
 
-  const [versions, setVersions] = useState(useLoaderData());
+  const evaluation = useLoaderData();
+  const [versions, setVersions] = useState(evaluation.versions);
 
   const onVersionCreated = (version) => {
     setVersions([...versions, version]);
@@ -21,7 +22,7 @@ export const VersionListPage = () => {
 
   return (
     <>
-      <PageTitle>Versions</PageTitle>
+      <PageTitle>{evaluation.evaluation_name}</PageTitle>
       <div className="flex my-5">
         <PrimaryButton onClick={() => setShowVersionModal(true)}>
           New Version

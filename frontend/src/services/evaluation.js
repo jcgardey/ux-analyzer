@@ -7,3 +7,6 @@ export const createEvaluation = (name) =>
 
 export const deleteEvaluation = (id) => axios.delete(`/evaluation/${id}`);
 
+export const getEvaluation = (evaluationId) =>
+  axios.get(`/evaluation/${evaluationId}`);
+

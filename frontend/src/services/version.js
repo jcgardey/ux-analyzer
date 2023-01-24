@@ -1,8 +1,5 @@
 import axios from '../axios';
 
-export const getEvaluationVersions = (evaluationId) =>
-  axios.get(`/evaluation/${evaluationId}/version`);
-
 export const createVersion = (evaluationId, name, urls) =>
   axios.post(`/evaluation/${evaluationId}/version/new`, { name, urls });
 

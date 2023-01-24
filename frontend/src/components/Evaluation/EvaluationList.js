@@ -11,7 +11,7 @@ export const EvaluationList = ({ evaluations, onDelete }) => {
         <div className="w-1/3"></div>
       </GridHeader>
       {evaluations.map((evaluation, i) => (
-        <Link key={i} to={`/evaluation/${evaluation.id}/version`}>
+        <Link key={i} to={`/evaluation/${evaluation.id}`}>
           <GridItem>
             <p className="w-1/3 mx-2">{evaluation.evaluation_name}</p>
             <p className="w-1/3 mx-2">
