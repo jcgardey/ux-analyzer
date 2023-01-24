@@ -11,6 +11,7 @@ class Version(models.Model):
 
     version_name = models.CharField(max_length=255)
     token = models.CharField(max_length=16)
+    urls = models.CharField(max_length=500)
     evaluation = models.ForeignKey(Evaluation, on_delete=models.CASCADE, null=True, related_name='versions')
 
     def get_user_interaction_effort(self):

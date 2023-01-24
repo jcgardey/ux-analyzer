@@ -14,8 +14,10 @@ class CreateVersionAPI(APIView):
         return ''.join(random.choices(string.ascii_lowercase + string.digits, k=16))
 
     def post(self, request, evaluation_id):
-        version = Evaluation.objects.get(pk=evaluation_id).versions.create(version_name=request.data['name'], token=self.generate_version_token())
-        return Response({'version_name': version.version_name, 'token': version.token}, status=status.HTTP_201_CREATED)
+        version = Evaluation.objects.get(pk=evaluation_id).versions.create(version_name=request.data['name'], 
+        token=self.generate_version_token(),
+        urls=','.join(request.data['urls']) )
+        return Response(VersionSerializer(version).data, status=status.HTTP_201_CREATED)
 
 class ListVersionsAPI(APIView):
 

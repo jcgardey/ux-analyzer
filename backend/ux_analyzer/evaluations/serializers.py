@@ -27,9 +27,10 @@ class VersionSerializer(serializers.ModelSerializer):
     user_interaction_effort = serializers.SerializerMethodField()
     user_sessions_count = serializers.SerializerMethodField()
     widgets_count = serializers.SerializerMethodField()
+    urls = serializers.SerializerMethodField()
     class Meta:
         model = Version
-        fields = ('id', 'version_name', 'token' , 'user_interaction_effort', 'user_sessions_count', 'widgets_count')
+        fields = ('id', 'version_name', 'urls', 'token' , 'user_interaction_effort', 'user_sessions_count', 'widgets_count')
     
     def get_user_interaction_effort(self, version):
         return round(version.get_user_interaction_effort(),1) if version.get_user_interaction_effort() else None
@@ -39,3 +40,6 @@ class VersionSerializer(serializers.ModelSerializer):
     
     def get_widgets_count(self, version):
         return version.get_widgets().count()
+    
+    def get_urls(self, version):
+        return version.urls.split(',')
