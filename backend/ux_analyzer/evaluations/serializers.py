@@ -43,3 +43,11 @@ class VersionSerializer(serializers.ModelSerializer):
     
     def get_urls(self, version):
         return version.urls.split(',')
+
+
+class FullEvaluationSerializer(serializers.ModelSerializer):
+    versions = VersionSerializer(many=True)
+
+    class Meta:
+        model = Evaluation
+        fields = ('id', 'evaluation_name', 'versions')

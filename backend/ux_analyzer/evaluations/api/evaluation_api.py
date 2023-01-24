@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from evaluations.serializers import EvaluationSerializer
+from evaluations.serializers import EvaluationSerializer, FullEvaluationSerializer
 
 from evaluations.models import Evaluation
 
@@ -21,3 +21,8 @@ class ListEvaluationsApi(APIView):
 
     def get(self, request):
         return Response(EvaluationSerializer(Evaluation.objects.all(), many=True).data)
+
+class GetEvaluationAPI(APIView):
+
+    def get(self, request, id):
+        return Response(FullEvaluationSerializer(Evaluation.objects.get(pk=id)).data)
