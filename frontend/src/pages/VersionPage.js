@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { PageTitle } from '../components/Common/PageTitle';
 import { Sections } from '../components/Common/Sections';
 import { Setup } from '../components/Version/Setup';
@@ -28,11 +28,17 @@ export const VersionPage = () => {
       element: Widgets,
       props: { versionId: version.id },
     },
-    { name: 'Setup', show: true, element: Setup, props: {} },
+    { name: 'Setup', show: true, element: Setup, props: { version } },
   ];
 
   return (
     <>
+      <div className="my-6 text-gray-700">
+        <Link className="hover:underline" to={'/'}>
+          Checkout page
+        </Link>{' '}
+        / <span className="font-semibold">{version.version_name}</span>
+      </div>
       <PageTitle>{version.version_name}</PageTitle>
       <div className="my-4">
         {version.urls.map((url) => (
