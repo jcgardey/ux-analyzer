@@ -31,3 +31,8 @@ class GetVersionWidgetsAPI(APIView):
     
     def get(self, request, id):
         return Response(Version.objects.get(pk=id).get_widgets())
+
+class DeleteVersionAPI(APIView):
+    
+    def delete(self, request, id):
+        return Response(Version.objects.get(pk=id).delete())
