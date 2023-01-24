@@ -5,6 +5,7 @@ import { PageTitle } from '../components/Common/PageTitle';
 import { Modal } from '../components/Modal/Modal';
 import { CreateVersion } from '../components/VersionList/CreateVersion';
 import { VersionList } from '../components/VersionList/VersionList';
+import { deleteVersion } from '../services/version';
 
 export const VersionListPage = () => {
   const [showVersionModal, setShowVersionModal] = useState(false);
@@ -16,6 +17,8 @@ export const VersionListPage = () => {
     setShowVersionModal(false);
   };
 
+  const onDelete = (versionId) => deleteVersion(versionId);
+
   return (
     <>
       <PageTitle>Versions</PageTitle>
@@ -24,7 +27,7 @@ export const VersionListPage = () => {
           New Version
         </PrimaryButton>
       </div>
-      <VersionList versions={versions} />
+      <VersionList versions={versions} onDelete={onDelete} />
       {showVersionModal && (
         <Modal
           handleClose={() => setShowVersionModal(false)}

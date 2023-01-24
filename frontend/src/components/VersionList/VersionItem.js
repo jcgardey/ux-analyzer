@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { DeleteButton, EditButton } from '../Button/Button';
 import { InteractionEffort } from '../InteractionEffort';
 
-export const VersionItem = ({ version }) => (
+export const VersionItem = ({ version, onDelete }) => (
   <Link to={`/version/${version.id}`}>
     <div className="flex items-center my-4 rounded border drop-shadow-lg p-1.5 bg-gray-100 hover:cursor-pointer hover:bg-gray-200">
       <h3 className="w-1/3 font-sans text-center text-gray-700 font-bold text-2xl">
@@ -26,7 +26,7 @@ export const VersionItem = ({ version }) => (
       </div>
       <div>
         <EditButton />
-        <DeleteButton />
+        <DeleteButton onClick={() => onDelete(version.id)} />
       </div>
     </div>
   </Link>
