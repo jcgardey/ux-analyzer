@@ -1,11 +1,14 @@
 import { NavBar } from './components/NavBar';
-import { VersionListPage } from './pages/VersionListPage';
+import { EvaluationPage } from './pages/EvaluationPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { VersionPage } from './pages/VersionPage';
 import { getVersion } from './services/version';
 import { EvaluationListPage } from './pages/EvaluationListPage';
 import { Footer } from './components/Footer';
 import { getEvaluation } from './services/evaluation';
+import { createContext, useState } from 'react';
+
+export const NavigationContext = createContext({});
 
 function App() {
   const router = createBrowserRouter([
@@ -15,7 +18,7 @@ function App() {
     },
     {
       path: '/evaluation/:evaluationId',
-      element: <VersionListPage />,
+      element: <EvaluationPage />,
       loader: ({ params }) =>
         getEvaluation(params.evaluationId).then((res) => res.data),
     },
@@ -26,11 +29,15 @@ function App() {
     },
   ]);
 
+  const [navigation, setNavigation] = useState([]);
+
   return (
     <>
       <NavBar />
       <div className="w-4/5 mx-auto" style={{ minHeight: '70vh' }}>
-        <RouterProvider router={router} />
+        <NavigationContext.Provider value={{ navigation, setNavigation }}>
+          <RouterProvider router={router} />
+        </NavigationContext.Provider>
       </div>
       <Footer />
     </>
@@ -38,4 +45,3 @@ function App() {
 }
 
 export default App;
-
