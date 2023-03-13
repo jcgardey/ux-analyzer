@@ -25,6 +25,7 @@ class CreateUserSessionAPI(APIView):
                 widget_type=widget_log['widgetType'], 
                 widget_xpath=widget_log['xpath'], 
                 widget_url=widget_log['url'],
+                widget_label=widget_log['label'],
                 micro_measures= self.get_micro_measures_from_log(widget_log)
             )
         return Response(UserSessionSerializer(user_session).data, status=status.HTTP_201_CREATED)
