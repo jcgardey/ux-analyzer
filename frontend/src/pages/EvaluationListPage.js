@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { NavigationContext } from '../App';
 import { PrimaryButton } from '../components/Button/Button';
 import { PageTitle } from '../components/Common/PageTitle';
 import { CreateEvaluation } from '../components/Evaluation/CreateEvaluation';
@@ -11,9 +12,15 @@ export const EvaluationListPage = () => {
 
   const [evaluations, setEvaluations] = useState([]);
 
+  const { navigation, setNavigation } = useContext(NavigationContext);
+
   useEffect(() => {
     getAllEvaluations().then((res) => setEvaluations(res.data));
   }, []);
+
+  useEffect(() => {
+    setNavigation([{ name: 'Evaluations', to: '/' }]);
+  }, [setNavigation]);
 
   const onEvaluationCreated = (evaluation) => {
     setEvaluations([...evaluations, evaluation]);
@@ -45,4 +52,3 @@ export const EvaluationListPage = () => {
     </>
   );
 };
-

@@ -44,8 +44,8 @@ export const CreateVersion = ({ onVersionCreated }) => {
           onChange={(e) => setUrl(e.target.value)}
           onBlur={addUrl}
         />
-        {urls.map((url) => (
-          <div className="my-4">
+        {urls.map((url, i) => (
+          <div key={i} className="my-4">
             <span className="bg-gray-300 text-gray-900 rounded-2xl p-2">
               {url}
             </span>
@@ -64,4 +64,3 @@ export const CreateVersion = ({ onVersionCreated }) => {
     </form>
   );
 };
-
