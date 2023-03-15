@@ -1,8 +1,10 @@
 import { Grid, GridHeader, GridItem } from '../Common/Grid';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DeleteButton, EditButton } from '../Button/Button';
 
 export const EvaluationList = ({ evaluations, onDelete }) => {
+  const navigate = useNavigate();
+
   return (
     <Grid>
       <GridHeader>
@@ -11,7 +13,7 @@ export const EvaluationList = ({ evaluations, onDelete }) => {
         <div className="w-1/3"></div>
       </GridHeader>
       {evaluations.map((evaluation, i) => (
-        <Link key={i} to={`/evaluation/${evaluation.id}`}>
+        <a key={i} onClick={() => navigate(`/evaluation/${evaluation.id}`)}>
           <GridItem>
             <p className="w-1/3 mx-2">{evaluation.evaluation_name}</p>
             <p className="w-1/3 mx-2">
@@ -19,10 +21,15 @@ export const EvaluationList = ({ evaluations, onDelete }) => {
             </p>
             <div className="w-1/3">
               <EditButton />
-              <DeleteButton onClick={() => onDelete(evaluation.id)} />
+              <DeleteButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(evaluation.id);
+                }}
+              />
             </div>
           </GridItem>
-        </Link>
+        </a>
       ))}
     </Grid>
   );
