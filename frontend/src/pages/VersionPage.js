@@ -1,4 +1,5 @@
-import { Link, useLoaderData } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLoaderData, useOutletContext } from 'react-router-dom';
 import { PageTitle } from '../components/Common/PageTitle';
 import { Sections } from '../components/Common/Sections';
 import { Setup } from '../components/Version/Setup';
@@ -30,6 +31,18 @@ export const VersionPage = () => {
     },
     { name: 'Setup', show: true, element: Setup, props: { version } },
   ];
+
+  const [breadcrumbs, setBreadcrumbs] = useOutletContext();
+
+  useEffect(() => {
+    setBreadcrumbs([
+      ...breadcrumbs,
+      {
+        text: version.version_name,
+        href: `version/${version.id}`,
+      },
+    ]);
+  }, []);
 
   return (
     <>
