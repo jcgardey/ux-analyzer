@@ -33,12 +33,6 @@ export const VersionPage = () => {
 
   return (
     <>
-      <div className="my-6 text-gray-700">
-        <Link className="hover:underline" to={'/'}>
-          Checkout page
-        </Link>{' '}
-        / <span className="font-semibold">{version.version_name}</span>
-      </div>
       <PageTitle>{version.version_name}</PageTitle>
       <div className="my-4">
         {version.urls.map((url) => (
@@ -56,4 +50,3 @@ export const VersionPage = () => {
     </>
   );
 };
-

@@ -6,7 +6,7 @@ export const VersionItem = ({ version, onDelete }) => {
   const navigate = useNavigate();
 
   return (
-    <a onClick={() => navigate(`/version/${version.id}`)}>
+    <a onClick={() => navigate(`version/${version.id}`)}>
       <div className="flex items-center my-4 rounded border drop-shadow-lg p-1.5 bg-gray-100 hover:cursor-pointer hover:bg-gray-200">
         <h3 className="w-1/3 font-sans text-center text-gray-700 font-bold text-2xl">
           {version.version_name}
@@ -40,4 +40,3 @@ export const VersionItem = ({ version, onDelete }) => {
     </a>
   );
 };
-
