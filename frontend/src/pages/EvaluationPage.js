@@ -2,18 +2,20 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 const BreadCrumbs = ({ breadcrumbs }) =>
-  breadcrumbs.map((crumb, i) => {
-    return breadcrumbs.length - 1 !== i ? (
-      <span>
-        <Link className="mx-1 hover:underline" to={crumb.href}>
-          {crumb.text}
-        </Link>{' '}
-        /
-      </span>
-    ) : (
-      <span className="mx-2">{crumb.text}</span>
-    );
-  });
+  breadcrumbs.map((crumb, i) => (
+    <span className="mx-1 font-bold">
+      {breadcrumbs.length - 1 !== i ? (
+        <>
+          <Link className="hover:underline font-normal" to={crumb.href}>
+            {crumb.text}
+          </Link>{' '}
+          /
+        </>
+      ) : (
+        crumb.text
+      )}
+    </span>
+  ));
 
 export const EvaluationPage = () => {
   const [breadcrumbs, setBreadcrumbs] = useState([]);
@@ -27,3 +29,4 @@ export const EvaluationPage = () => {
     </>
   );
 };
+
