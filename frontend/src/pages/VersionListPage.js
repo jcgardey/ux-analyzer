@@ -22,7 +22,7 @@ export const VersionListPage = () => {
         href: `/evaluation/${evaluation.id}`,
       },
     ]);
-  }, []);
+  }, [evaluation, setBreadcrumbs]);
 
   const onVersionCreated = (version) => {
     setVersions([...versions, version]);
@@ -51,3 +51,4 @@ export const VersionListPage = () => {
     </>
   );
 };
+
