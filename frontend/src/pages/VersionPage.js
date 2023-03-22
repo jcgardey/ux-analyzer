@@ -1,4 +1,5 @@
-import { Link, useLoaderData } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLoaderData, useOutletContext } from 'react-router-dom';
 import { PageTitle } from '../components/Common/PageTitle';
 import { Sections } from '../components/Common/Sections';
 import { Setup } from '../components/Version/Setup';
@@ -31,14 +32,20 @@ export const VersionPage = () => {
     { name: 'Setup', show: true, element: Setup, props: { version } },
   ];
 
+  const [breadcrumbs, setBreadcrumbs] = useOutletContext();
+
+  useEffect(() => {
+    setBreadcrumbs([
+      ...breadcrumbs,
+      {
+        text: version.version_name,
+        href: `version/${version.id}`,
+      },
+    ]);
+  }, []);
+
   return (
     <>
-      <div className="my-6 text-gray-700">
-        <Link className="hover:underline" to={'/'}>
-          Checkout page
-        </Link>{' '}
-        / <span className="font-semibold">{version.version_name}</span>
-      </div>
       <PageTitle>{version.version_name}</PageTitle>
       <div className="my-4">
         {version.urls.map((url) => (
@@ -56,4 +63,3 @@ export const VersionPage = () => {
     </>
   );
 };
-

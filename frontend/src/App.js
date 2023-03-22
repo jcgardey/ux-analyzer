@@ -7,6 +7,7 @@ import { EvaluationListPage } from './pages/EvaluationListPage';
 import { Footer } from './components/Footer';
 import { getEvaluation } from './services/evaluation';
 import { createContext, useState } from 'react';
+import { VersionListPage } from './pages/VersionListPage';
 
 export const NavigationContext = createContext({});
 
@@ -17,15 +18,23 @@ function App() {
       element: <EvaluationListPage />,
     },
     {
-      path: '/evaluation/:evaluationId',
+      path: '/evaluation/:evaluationId/',
       element: <EvaluationPage />,
       loader: ({ params }) =>
         getEvaluation(params.evaluationId).then((res) => res.data),
-    },
-    {
-      path: '/version/:id',
-      element: <VersionPage />,
-      loader: ({ params }) => getVersion(params.id).then((res) => res.data),
+      children: [
+        {
+          path: '',
+          element: <VersionListPage />,
+          loader: ({ params }) =>
+            getEvaluation(params.evaluationId).then((res) => res.data),
+        },
+        {
+          path: 'version/:id',
+          element: <VersionPage />,
+          loader: ({ params }) => getVersion(params.id).then((res) => res.data),
+        },
+      ],
     },
   ]);
 
