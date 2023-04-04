@@ -6,11 +6,13 @@ import { getVersion } from './services/version';
 import { EvaluationListPage } from './pages/EvaluationListPage';
 import { Footer } from './components/Footer';
 import { getEvaluation } from './services/evaluation';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { VersionListPage } from './pages/VersionListPage';
 import { LoginPage } from './pages/LoginPage';
 import { LoggedUserPage } from './pages/LoggedUserPage';
 import { UserContext } from './context/UserContext';
+import { ProtectedRoute } from './route/ProtectedRoute';
+import { getLoggedUser } from './services/user';
 
 export const NavigationContext = createContext({});
 
@@ -22,7 +24,11 @@ function App() {
     },
     {
       path: '/',
-      element: <LoggedUserPage />,
+      element: (
+        <ProtectedRoute>
+          <LoggedUserPage />
+        </ProtectedRoute>
+      ),
       children: [
         {
           path: '',
@@ -52,11 +58,26 @@ function App() {
     },
   ]);
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      getLoggedUser()
+        .then((res) => {
+          setUser(res.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          localStorage.removeItem('token');
+        });
+    }
+  }, []);
 
   return (
     <>
-      <UserContext.Provider value={{ user, setUser }}>
+      <UserContext.Provider value={{ user, setUser, loading }}>
         <RouterProvider router={router} />
       </UserContext.Provider>
     </>
