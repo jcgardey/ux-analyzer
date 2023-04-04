@@ -10,6 +10,7 @@ import { createContext, useState } from 'react';
 import { VersionListPage } from './pages/VersionListPage';
 import { LoginPage } from './pages/LoginPage';
 import { LoggedUserPage } from './pages/LoggedUserPage';
+import { UserContext } from './context/UserContext';
 
 export const NavigationContext = createContext({});
 
@@ -24,11 +25,11 @@ function App() {
       element: <LoggedUserPage />,
       children: [
         {
-          path: '/',
+          path: '',
           element: <EvaluationListPage />,
         },
         {
-          path: '/evaluation/:evaluationId/',
+          path: 'evaluation/:evaluationId/',
           element: <EvaluationPage />,
           loader: ({ params }) =>
             getEvaluation(params.evaluationId).then((res) => res.data),
@@ -51,11 +52,13 @@ function App() {
     },
   ]);
 
-  const [navigation, setNavigation] = useState([]);
+  const [user, setUser] = useState({});
 
   return (
     <>
-      <RouterProvider router={router} />
+      <UserContext.Provider value={{ user, setUser }}>
+        <RouterProvider router={router} />
+      </UserContext.Provider>
     </>
   );
 }
