@@ -8,31 +8,44 @@ import { Footer } from './components/Footer';
 import { getEvaluation } from './services/evaluation';
 import { createContext, useState } from 'react';
 import { VersionListPage } from './pages/VersionListPage';
+import { LoginPage } from './pages/LoginPage';
+import { LoggedUserPage } from './pages/LoggedUserPage';
 
 export const NavigationContext = createContext({});
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: '/',
-      element: <EvaluationListPage />,
+      path: '/login',
+      element: <LoginPage />,
     },
     {
-      path: '/evaluation/:evaluationId/',
-      element: <EvaluationPage />,
-      loader: ({ params }) =>
-        getEvaluation(params.evaluationId).then((res) => res.data),
+      path: '/',
+      element: <LoggedUserPage />,
       children: [
         {
-          path: '',
-          element: <VersionListPage />,
-          loader: ({ params }) =>
-            getEvaluation(params.evaluationId).then((res) => res.data),
+          path: '/',
+          element: <EvaluationListPage />,
         },
         {
-          path: 'version/:id',
-          element: <VersionPage />,
-          loader: ({ params }) => getVersion(params.id).then((res) => res.data),
+          path: '/evaluation/:evaluationId/',
+          element: <EvaluationPage />,
+          loader: ({ params }) =>
+            getEvaluation(params.evaluationId).then((res) => res.data),
+          children: [
+            {
+              path: '',
+              element: <VersionListPage />,
+              loader: ({ params }) =>
+                getEvaluation(params.evaluationId).then((res) => res.data),
+            },
+            {
+              path: 'version/:id',
+              element: <VersionPage />,
+              loader: ({ params }) =>
+                getVersion(params.id).then((res) => res.data),
+            },
+          ],
         },
       ],
     },
@@ -42,13 +55,7 @@ function App() {
 
   return (
     <>
-      <NavBar />
-      <div className="w-4/5 mx-auto" style={{ minHeight: '70vh' }}>
-        <NavigationContext.Provider value={{ navigation, setNavigation }}>
-          <RouterProvider router={router} />
-        </NavigationContext.Provider>
-      </div>
-      <Footer />
+      <RouterProvider router={router} />
     </>
   );
 }
