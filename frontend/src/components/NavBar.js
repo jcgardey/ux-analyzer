@@ -9,8 +9,7 @@ export const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const onLogout = () => {
-    logout();
-    localStorage.removeItem('token');
+    logout().then(() => localStorage.removeItem('token'));
   };
 
   return (
