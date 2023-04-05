@@ -12,15 +12,9 @@ export const EvaluationListPage = () => {
 
   const [evaluations, setEvaluations] = useState([]);
 
-  const { navigation, setNavigation } = useContext(NavigationContext);
-
   useEffect(() => {
     getAllEvaluations().then((res) => setEvaluations(res.data));
   }, []);
-
-  useEffect(() => {
-    setNavigation([{ name: 'Evaluations', to: '/' }]);
-  }, [setNavigation]);
 
   const onEvaluationCreated = (evaluation) => {
     setEvaluations([...evaluations, evaluation]);
