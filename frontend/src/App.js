@@ -68,10 +68,12 @@ function App() {
           setUser(res.data);
           setLoading(false);
         })
-        .catch((error) => {
+        .catch(() => {
           setLoading(false);
           localStorage.removeItem('token');
         });
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -85,3 +87,4 @@ function App() {
 }
 
 export default App;
+
