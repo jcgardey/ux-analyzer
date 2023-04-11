@@ -3,12 +3,14 @@ import { Navigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
 export const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useContext(UserContext);
-  if (loading) {
+  const { user, isAuthenticated } = useContext(UserContext);
+  if (isAuthenticated && user === null) {
     return <p>Cargando usuario..</p>;
   }
-  if (user === null) {
+
+  if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
+
   return children;
 };
