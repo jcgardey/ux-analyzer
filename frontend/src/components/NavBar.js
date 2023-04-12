@@ -4,12 +4,13 @@ import { UserContext } from '../context/UserContext';
 import { logout } from '../services/user';
 
 export const NavBar = () => {
-  const { user } = useContext(UserContext);
+  const { user, setIsAuthenticated } = useContext(UserContext);
 
   const [showDropdown, setShowDropdown] = useState(false);
 
   const onLogout = () => {
     logout().then(() => localStorage.removeItem('token'));
+    setIsAuthenticated(false);
   };
 
   return (
@@ -17,10 +18,15 @@ export const NavBar = () => {
       className={`w-full h-16 bg-sky-900 flex justify-between items-center px-4 py-0.25`}
     >
       <div>
-        <a className="text-2xl text-white font-semibold border-r border-white px-1.5">
+        <Link
+          to="/"
+          className="text-2xl text-white font-semibold border-r border-white px-1.5"
+        >
           UX-Analyzer
-        </a>
-        <a className="text-white text-lg font-medium mx-4">Evaluations</a>
+        </Link>
+        <Link to="/" className="text-white text-lg font-medium mx-4">
+          Evaluations
+        </Link>
       </div>
       <div className="relative w-56 hover:cursor-pointer">
         <span
