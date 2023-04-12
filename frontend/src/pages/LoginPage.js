@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PrimaryButton } from '../components/Button/Button';
 import { UserContext } from '../context/UserContext';
@@ -17,7 +17,8 @@ export const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { setUser } = useContext(UserContext);
+  const { setUser, setIsAuthenticated, isAuthenticated } =
+    useContext(UserContext);
   let navigate = useNavigate();
 
   const onSubmit = (e) => {
@@ -25,13 +26,17 @@ export const LoginPage = () => {
     if (email !== '' && password !== '') {
       login(email, password)
         .then((response) => {
+          setIsAuthenticated(true);
           setUser(response.data);
           localStorage.setItem('token', response.data.token);
-          navigate('/');
         })
         .catch((error) => setError(error.response.data));
     }
   };
+
+  if (isAuthenticated) {
+    navigate('/');
+  }
 
   return (
     <div className="my-4 w-1/3 mx-auto bg-gray-100 p-4">

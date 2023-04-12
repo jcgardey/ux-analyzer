@@ -59,27 +59,28 @@ function App() {
   ]);
 
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem('token') !== null
+  );
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
+    if (isAuthenticated) {
       getLoggedUser()
         .then((res) => {
           setUser(res.data);
-          setLoading(false);
         })
-        .catch(() => {
-          setLoading(false);
+        .catch((error) => {
+          setIsAuthenticated(false);
           localStorage.removeItem('token');
         });
-    } else {
-      setLoading(false);
     }
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <>
-      <UserContext.Provider value={{ user, setUser, loading }}>
+      <UserContext.Provider
+        value={{ user, setUser, setIsAuthenticated, isAuthenticated }}
+      >
         <RouterProvider router={router} />
       </UserContext.Provider>
     </>
