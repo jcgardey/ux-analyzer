@@ -1,5 +1,6 @@
 from django.db import models
 from .micro_measures_grabbers import grabbers
+from users.models import UserProfile
 
 from prediction_models.train_models import prediction_models
 import numpy as np
@@ -7,6 +8,8 @@ import numpy as np
 class Evaluation(models.Model):
     evaluation_name = models.CharField(max_length=255)
     creation_date = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='evaluations')
+
 class Version(models.Model):
 
     version_name = models.CharField(max_length=255)
