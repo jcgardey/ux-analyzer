@@ -14,6 +14,7 @@ class CreateEvaluationAPI(APIView):
         return Response(EvaluationSerializer(evaluation).data, status=status.HTTP_201_CREATED)
 
 class DeleteEvaluationAPI(APIView):
+    permission_classes = [IsAuthenticated]
     
     def delete(self, request, id):
         evaluation = Evaluation.objects.get(pk=id)

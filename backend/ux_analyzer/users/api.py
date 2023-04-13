@@ -4,7 +4,7 @@ from knox.models import AuthToken
 from rest_framework import status
 from rest_framework.response import Response
 from .serializers import LoginUserSerializer
-
+from rest_framework.permissions import IsAuthenticated
 
 class LoginAPI(APIView):
     
@@ -20,6 +20,7 @@ class LoginAPI(APIView):
         return Response({ 'token': token, 'name': user.name })
 
 class GetLoggedUserAPI(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         return Response({'name': request.user.name})
