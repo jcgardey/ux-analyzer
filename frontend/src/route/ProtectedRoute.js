@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
 import { Loading } from '../components/Common/Loading';
 import { UserContext } from '../context/UserContext';
+import { LandingPage } from '../pages/LandingPage';
 
 export const ProtectedRoute = ({ children }) => {
   const { user, isAuthenticated } = useContext(UserContext);
@@ -10,7 +10,7 @@ export const ProtectedRoute = ({ children }) => {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" />;
+    return <LandingPage />;
   }
 
   return children;
