@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Modal } from '../components/Modal/Modal';
+import { Login } from '../components/Login/Login';
 
 export const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -23,7 +24,9 @@ export const LandingPage = () => {
         </div>
       </div>
       {showLogin && (
-        <Modal handleClose={() => setShowLogin(false)} title="Login"></Modal>
+        <Modal handleClose={() => setShowLogin(false)} title="Login">
+          <Login />
+        </Modal>
       )}
     </div>
   );

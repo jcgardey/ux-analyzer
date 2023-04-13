@@ -39,7 +39,7 @@ export const NavBar = () => {
         {showDropdown && (
           <div className="absolute bg-white w-full p-2 rounded border border-gray-300">
             <Link
-              to="/login"
+              to="/"
               onClick={onLogout}
               className="block hover:bg-slate-200 p-1"
             >
@@ -51,4 +51,3 @@ export const NavBar = () => {
     </div>
   );
 };
-

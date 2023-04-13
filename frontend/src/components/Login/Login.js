@@ -1,25 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { PrimaryButton } from '../components/Button/Button';
-import { UserContext } from '../context/UserContext';
-import { login } from '../services/user';
-
-const Input = ({ type, ...props }) => (
-  <input type={type} {...props} className={'w-full rounded h-8'} />
-);
+import { useContext, useState } from 'react';
+import { UserContext } from '../../context/UserContext';
+import { login } from '../../services/user';
+import { PrimaryButton } from '../Button/Button';
+import { Input } from '../Common/Form';
 
 const ErrorMessage = ({ className, children }) => (
   <p className={`text-red-600 my-1 ${className}`}>{children}</p>
 );
 
-export const LoginPage = () => {
+export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { setUser, setIsAuthenticated, isAuthenticated } =
-    useContext(UserContext);
-  let navigate = useNavigate();
+  const { setUser, setIsAuthenticated } = useContext(UserContext);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -34,13 +28,8 @@ export const LoginPage = () => {
     }
   };
 
-  if (isAuthenticated) {
-    navigate('/');
-  }
-
   return (
-    <div className="my-4 w-1/3 mx-auto bg-gray-100 p-4">
-      <h1 className="text-center text-2xl">Login</h1>
+    <div className="my-4 w-3/4 mx-auto p-4">
       {error.credentials !== '' && (
         <ErrorMessage className="text-center">{error.credentials}</ErrorMessage>
       )}

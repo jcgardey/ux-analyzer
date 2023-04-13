@@ -8,7 +8,6 @@ import { Footer } from './components/Footer';
 import { getEvaluation } from './services/evaluation';
 import { createContext, useEffect, useState } from 'react';
 import { VersionListPage } from './pages/VersionListPage';
-import { LoginPage } from './pages/LoginPage';
 import { LoggedUserPage } from './pages/LoggedUserPage';
 import { UserContext } from './context/UserContext';
 import { ProtectedRoute } from './route/ProtectedRoute';
@@ -18,10 +17,6 @@ export const NavigationContext = createContext({});
 
 function App() {
   const router = createBrowserRouter([
-    {
-      path: '/login',
-      element: <LoginPage />,
-    },
     {
       path: '/',
       element: (
@@ -88,4 +83,3 @@ function App() {
 }
 
 export default App;
-
