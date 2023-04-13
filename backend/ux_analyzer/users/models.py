@@ -16,3 +16,6 @@ class User(AbstractBaseUser):
     objects = UserManager()
     
     USERNAME_FIELD = 'email'
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
