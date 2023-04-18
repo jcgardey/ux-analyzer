@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { logout } from '../services/user';
+import logo from '../media/logo.png';
 
 export const NavBar = () => {
   const { user, setIsAuthenticated } = useContext(UserContext);
@@ -15,17 +16,11 @@ export const NavBar = () => {
 
   return (
     <div
-      className={`w-full h-16 bg-sky-900 flex justify-between items-center px-4 py-0.25`}
+      className={`w-full h-24 shadow flex justify-between items-center px-4 py-1`}
     >
       <div>
-        <Link
-          to="/"
-          className="text-2xl text-white font-semibold border-r border-white px-1.5"
-        >
-          UX-Analyzer
-        </Link>
-        <Link to="/" className="text-white text-lg font-medium mx-4">
-          Evaluations
+        <Link to="/" className="text-2xl text-white font-semibold px-1.5">
+          <img src={logo} alt="Logo" />
         </Link>
       </div>
       <div className="relative w-56 hover:cursor-pointer">
