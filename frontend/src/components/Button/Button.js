@@ -1,6 +1,6 @@
 export const PrimaryButton = ({ children, onClick, ...props }) => (
   <button
-    className="bg-sky-800 hover:bg-sky-700 text-white rounded-lg p-3"
+    className="bg-red hover:bg-lightred text-white rounded-lg p-3"
     onClick={onClick}
     {...props}
   >

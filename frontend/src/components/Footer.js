@@ -1,5 +1,5 @@
 export const Footer = () => (
-  <div className="w-full p-2 flex flex-col justify-center h-40 bg-gray-600 text-white font-medium">
+  <div className="w-full p-2 flex flex-col justify-center h-40 bg-orange text-white font-medium">
     <p className="m-2">
       Developed at{' '}
       <a className="underline" href="https://lifia.info.unlp.edu.ar">

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { logout } from '../services/user';
 import logo from '../media/logo.png';
+import { LogoutIcon } from './Icons/LogoutIcon';
 
 export const NavBar = () => {
   const { user, setIsAuthenticated } = useContext(UserContext);
@@ -25,7 +26,7 @@ export const NavBar = () => {
       </div>
       <div className="relative w-56 hover:cursor-pointer">
         <span
-          className="text-white text-md font-medium text-right block"
+          className="text-red text-lg font-medium text-right block"
           onClick={() => setShowDropdown(!showDropdown)}
         >
           {user.name ? user.name : 'Annonymous User'}{' '}
@@ -36,9 +37,9 @@ export const NavBar = () => {
             <Link
               to="/"
               onClick={onLogout}
-              className="block hover:bg-slate-200 p-1"
+              className="block font-medium text-orange hover:text-yellow p-1"
             >
-              Logout
+              <LogoutIcon /> Logout
             </Link>
           </div>
         )}
@@ -46,3 +47,4 @@ export const NavBar = () => {
     </div>
   );
 };
+
