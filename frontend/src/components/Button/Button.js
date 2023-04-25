@@ -3,7 +3,7 @@ import { TrashIcon } from '../Icons/TrashIcon';
 
 export const PrimaryButton = ({ children, onClick, ...props }) => (
   <button
-    className="bg-red hover:bg-lightred text-white rounded-lg p-3"
+    className="bg-red hover:bg-lightred text-white rounded-full p-3"
     onClick={onClick}
     {...props}
   >

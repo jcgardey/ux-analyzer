@@ -1,6 +1,6 @@
-import { NavBar } from './components/NavBar';
+import { NavBar } from './components/NavBar/NavBar';
 import { EvaluationPage } from './pages/EvaluationPage';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import { VersionPage } from './pages/VersionPage';
 import { getVersion } from './services/version';
 import { EvaluationListPage } from './pages/EvaluationListPage';
@@ -12,6 +12,7 @@ import { LoggedUserPage } from './pages/LoggedUserPage';
 import { UserContext } from './context/UserContext';
 import { ProtectedRoute } from './route/ProtectedRoute';
 import { getLoggedUser } from './services/user';
+import { Root } from './pages/Root';
 
 export const NavigationContext = createContext({});
 
@@ -19,33 +20,39 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: (
-        <ProtectedRoute>
-          <LoggedUserPage />
-        </ProtectedRoute>
-      ),
+      element: <Root />,
       children: [
         {
           path: '',
-          element: <EvaluationListPage />,
-        },
-        {
-          path: 'evaluation/:evaluationId/',
-          element: <EvaluationPage />,
-          loader: ({ params }) =>
-            getEvaluation(params.evaluationId).then((res) => res.data),
+          element: (
+            <ProtectedRoute>
+              <LoggedUserPage />
+            </ProtectedRoute>
+          ),
           children: [
             {
               path: '',
-              element: <VersionListPage />,
-              loader: ({ params }) =>
-                getEvaluation(params.evaluationId).then((res) => res.data),
+              element: <EvaluationListPage />,
             },
             {
-              path: 'version/:id',
-              element: <VersionPage />,
+              path: 'evaluation/:evaluationId/',
+              element: <EvaluationPage />,
               loader: ({ params }) =>
-                getVersion(params.id).then((res) => res.data),
+                getEvaluation(params.evaluationId).then((res) => res.data),
+              children: [
+                {
+                  path: '',
+                  element: <VersionListPage />,
+                  loader: ({ params }) =>
+                    getEvaluation(params.evaluationId).then((res) => res.data),
+                },
+                {
+                  path: 'version/:id',
+                  element: <VersionPage />,
+                  loader: ({ params }) =>
+                    getVersion(params.id).then((res) => res.data),
+                },
+              ],
             },
           ],
         },
