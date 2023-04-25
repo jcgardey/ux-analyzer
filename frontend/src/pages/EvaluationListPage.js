@@ -37,6 +37,7 @@ export const EvaluationListPage = () => {
       <EvaluationList evaluations={evaluations} onDelete={onDelete} />
       {showEvaluationModal && (
         <Modal
+          className="w-1/3"
           handleClose={() => setShowEvaluationModal(false)}
           title="New Evaluation"
         >
