@@ -6,6 +6,7 @@ import { CreateEvaluation } from '../components/Evaluation/CreateEvaluation';
 import { EvaluationList } from '../components/Evaluation/EvaluationList';
 import { Modal } from '../components/Modal/Modal';
 import { deleteEvaluation, getAllEvaluations } from '../services/evaluation';
+import { PlusIcon } from '../components/Icons/PlusIcon';
 
 export const EvaluationListPage = () => {
   const [showEvaluationModal, setShowEvaluationModal] = useState(false);
@@ -29,9 +30,10 @@ export const EvaluationListPage = () => {
   return (
     <>
       <PageTitle>Evaluations</PageTitle>
-      <div className="flex justify-end my-5">
+      <div className="flex justify-start my-5">
         <PrimaryButton onClick={() => setShowEvaluationModal(true)}>
-          New Evaluation
+          New
+          <PlusIcon className="inline ml-1" />
         </PrimaryButton>
       </div>
       <EvaluationList evaluations={evaluations} onDelete={onDelete} />
