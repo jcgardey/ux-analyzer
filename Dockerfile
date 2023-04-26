@@ -11,7 +11,8 @@ RUN usermod -aG sudo ${user}
 #RUN echo "backend ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 USER ${user} 
-COPY ./backend .
+COPY ./backend/* /usr/src/app
 EXPOSE 8000
 
-RUN pip install -r ./ux_analyzer/requirements.txt
+RUN pip install -r requirements.txt
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"] 
