@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createEvaluation } from '../../services/evaluation';
 import { PrimaryButton } from '../Button/Button';
+import { Input, Label } from '../Common/Form';
 
 export const CreateEvaluation = ({ onEvaluationCreated }) => {
   const [evaluationName, setEvaluationName] = useState('');
@@ -15,11 +16,10 @@ export const CreateEvaluation = ({ onEvaluationCreated }) => {
   return (
     <form onSubmit={onSubmit}>
       <div className="my-4">
-        <label className="text-gray-700 font-medium block text-lg">Name</label>
-        <input
+        <Label className="text-gray-700 font-medium block text-lg">Name</Label>
+        <Input
           type={'text'}
           value={evaluationName}
-          className="w-full h-10 border border-sky-700 rounded text-gray-700 px-2 py-0.5"
           onChange={(e) => setEvaluationName(e.target.value)}
         />
       </div>
@@ -29,4 +29,3 @@ export const CreateEvaluation = ({ onEvaluationCreated }) => {
     </form>
   );
 };
-

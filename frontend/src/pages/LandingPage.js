@@ -1,33 +1,37 @@
-import { useState } from 'react';
-import { Modal } from '../components/Modal/Modal';
-import { Login } from '../components/Login/Login';
+import { Footer } from '../components/Footer';
+import user from '../media/user.png';
+import effort from '../media/effort.png';
+import alternatives from '../media/alternatives.png';
+import improve from '../media/improve.png';
+
+const Card = ({ img, text }) => (
+  <div className="w-1/5 shadow-xl drop-shadow-lg rounded p-1">
+    <img src={img} className="h-44 mx-auto" />
+    <p className="text-center text-2xl text-slate-800 my-4">{text}</p>
+  </div>
+);
 
 export const LandingPage = () => {
-  const [showLogin, setShowLogin] = useState(false);
-
   return (
     <div>
-      <div className="flex justify-between mx-4 my-2">
-        <div>
-          <h2 className="text-4xl">UX-Analyzer</h2>
+      <div className="flex items-center justify-evenly m-2">
+        <div className="w-1/3">
+          <h1 className="text-5xl text-slate-700">
+            Discover the users{' '}
+            <b className="text-red italic">interaction effort</b> on your web.
+          </h1>
         </div>
         <div>
-          <button
-            onClick={() => setShowLogin(true)}
-            className="mx-2 bg-sky-700 p-3 text-white rounded-full"
-          >
-            Login
-          </button>
-          <button className="mx-2 border p-3 rounded-full text-sky-900 border-sky-900">
-            Sign Up
-          </button>
+          <img src={user} alt="User interacting" />
         </div>
       </div>
-      {showLogin && (
-        <Modal handleClose={() => setShowLogin(false)} title="Login">
-          <Login />
-        </Modal>
-      )}
+      <div className="flex justify-evenly my-8 mx-4">
+        <Card text={'Get an overall score'} img={effort} />
+        <Card text={'Compare alternatives'} img={alternatives} />
+        <Card text={'Assess UI widgets'} />
+        <Card text={'Identify improvements'} img={improve} />
+      </div>
+      <Footer />
     </div>
   );
 };
