@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
 import { Login } from '../Login/Login';
+import { SignUp } from '../SignUp/SignUp';
 
 export const AnonymousUser = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
 
   return (
     <>
@@ -13,7 +15,10 @@ export const AnonymousUser = () => {
       >
         Login
       </button>
-      <button className="mx-2 border p-3 rounded-full text-red border-red">
+      <button
+        onClick={() => setShowSignUp(true)}
+        className="mx-2 border p-3 rounded-full text-red border-red"
+      >
         Sign Up
       </button>
       {showLogin && (
@@ -21,6 +26,12 @@ export const AnonymousUser = () => {
           <Login />
         </Modal>
       )}
+      {showSignUp && (
+        <Modal handleClose={() => setShowSignUp(false)} title="Sign Up">
+          <SignUp />
+        </Modal>
+      )}
     </>
   );
 };
+
