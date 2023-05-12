@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useLoaderData, useOutletContext } from 'react-router-dom';
+import { useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import { PrimaryButton } from '../components/Button/Button';
 import { PageTitle } from '../components/Common/PageTitle';
 import { Modal } from '../components/Modal/Modal';
@@ -11,18 +11,6 @@ export const VersionListPage = () => {
   const evaluation = useLoaderData();
   const [versions, setVersions] = useState(evaluation.versions);
   const [showVersionModal, setShowVersionModal] = useState(false);
-
-  const [breadcrumbs, setBreadcrumbs] = useOutletContext();
-
-  useEffect(() => {
-    setBreadcrumbs([
-      { text: 'Evaluations', href: '/' },
-      {
-        text: evaluation.evaluation_name,
-        href: `/evaluation/${evaluation.id}`,
-      },
-    ]);
-  }, [evaluation, setBreadcrumbs]);
 
   const onVersionCreated = (version) => {
     setVersions([...versions, version]);

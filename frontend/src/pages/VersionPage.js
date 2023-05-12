@@ -32,18 +32,6 @@ export const VersionPage = () => {
     { name: 'Setup', show: true, element: Setup, props: { version } },
   ];
 
-  const [breadcrumbs, setBreadcrumbs] = useOutletContext();
-
-  useEffect(() => {
-    setBreadcrumbs([
-      ...breadcrumbs,
-      {
-        text: version.version_name,
-        href: `version/${version.id}`,
-      },
-    ]);
-  }, []);
-
   return (
     <>
       <PageTitle>{version.version_name}</PageTitle>
@@ -63,3 +51,4 @@ export const VersionPage = () => {
     </>
   );
 };
+
