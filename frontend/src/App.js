@@ -1,10 +1,8 @@
-import { NavBar } from './components/NavBar/NavBar';
 import { EvaluationPage } from './pages/EvaluationPage';
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { VersionPage } from './pages/VersionPage';
 import { getVersion } from './services/version';
 import { EvaluationListPage } from './pages/EvaluationListPage';
-import { Footer } from './components/Footer';
 import { getEvaluation } from './services/evaluation';
 import { createContext, useEffect, useState } from 'react';
 import { VersionListPage } from './pages/VersionListPage';

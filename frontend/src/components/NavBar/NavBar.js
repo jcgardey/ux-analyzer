@@ -1,9 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
-import { logout } from '../../services/user';
 import logo from '../../media/logo.png';
-import { LogoutIcon } from '../Icons/LogoutIcon';
 import { LoggedUser } from './LoggedUser';
 import { AnonymousUser } from './AnonymousUser';
 
@@ -25,3 +23,4 @@ export const NavBar = () => {
     </div>
   );
 };
+

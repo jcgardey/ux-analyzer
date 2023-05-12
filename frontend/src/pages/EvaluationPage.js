@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link, Outlet, useMatches } from 'react-router-dom';
 
 const BreadCrumbs = () => {
@@ -25,7 +24,7 @@ const BreadCrumbs = () => {
   ];
 
   return breadcrumbs.map((crumb, i) => (
-    <span className="mx-1 font-bold">
+    <span key={i} className="mx-1 font-bold">
       {breadcrumbs.length - 1 !== i ? (
         <>
           <Link className="hover:underline font-normal" to={crumb.href}>

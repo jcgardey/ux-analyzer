@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Link, useLoaderData, useOutletContext } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { PageTitle } from '../components/Common/PageTitle';
 import { Sections } from '../components/Common/Sections';
 import { Setup } from '../components/Version/Setup';
@@ -36,8 +35,8 @@ export const VersionPage = () => {
     <>
       <PageTitle>{version.version_name}</PageTitle>
       <div className="my-4">
-        {version.urls.map((url) => (
-          <div>
+        {version.urls.map((url, i) => (
+          <div key={i}>
             <span className="bg-gray-300 text-lg text-gray-900 rounded-2xl p-2">
               {url}
             </span>
