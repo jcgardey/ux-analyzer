@@ -1,8 +1,8 @@
 ## Overview
-A web application to asssess the user interaction effort of different application pages. The user interaction effort is a score predicted with ML models that take as input different interaction logs called _micro-measures_. UX-Analyzer includes a script that has to be pasted in the target application's frontend to analyze the users interaction events.
+A web application to assess the user interaction effort of different application pages. The user interaction effort is a score predicted with ML models that take as input different interaction logs called _micro-measures_. UX-Analyzer includes a script that has to be pasted in the target application's frontend to analyze the users interaction events.
 
 ## Installation
-Developed with [React.js](https://react.dev/) and [Django-rest](https://www.django-rest-framework.org/).
+Developed with [React](https://react.dev/) and [Django-rest](https://www.django-rest-framework.org/).
 
 **API**
 
