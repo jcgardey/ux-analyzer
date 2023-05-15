@@ -11,6 +11,11 @@ import { UserContext } from './context/UserContext';
 import { ProtectedRoute } from './route/ProtectedRoute';
 import { getLoggedUser } from './services/user';
 import { Root } from './pages/Root';
+import { VersionStats } from './components/Version/VersionStats';
+import { UserSessions } from './components/Version/UserSessions';
+import { Widgets } from './components/Version/Widgets';
+import { Setup } from './components/Version/Setup';
+import { VersionRoot } from './components/Version/VersionRoot';
 
 export const NavigationContext = createContext({});
 
@@ -45,10 +50,32 @@ function App() {
                     getEvaluation(params.evaluationId).then((res) => res.data),
                 },
                 {
-                  path: 'version/:id',
+                  path: 'version/:id/',
                   element: <VersionPage />,
                   loader: ({ params }) =>
                     getVersion(params.id).then((res) => res.data),
+                  children: [
+                    {
+                      path: '',
+                      element: <VersionRoot />,
+                    },
+                    {
+                      path: 'stats',
+                      element: <VersionStats />,
+                    },
+                    {
+                      path: 'user_sessions',
+                      element: <UserSessions />,
+                    },
+                    {
+                      path: 'widgets',
+                      element: <Widgets />,
+                    },
+                    {
+                      path: 'setup',
+                      element: <Setup />,
+                    },
+                  ],
                 },
               ],
             },

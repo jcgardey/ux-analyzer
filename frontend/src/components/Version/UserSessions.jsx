@@ -3,15 +3,17 @@ import { getAllUserSessionsOfVersion } from '../../services/user_session';
 import { dateToISOString } from '../../utils/date';
 import { Grid, GridHeader, GridItem } from '../Common/Grid';
 import { InteractionEffort } from '../InteractionEffort';
+import { useOutletContext } from 'react-router-dom';
 
-export const UserSessions = ({ versionId }) => {
+export const UserSessions = () => {
   const [userSessions, setUserSessions] = useState([]);
+  const version = useOutletContext();
 
   useEffect(() => {
-    getAllUserSessionsOfVersion(versionId).then((res) =>
+    getAllUserSessionsOfVersion(version.id).then((res) =>
       setUserSessions(res.data)
     );
-  }, [versionId]);
+  }, [version.id]);
 
   return (
     <Grid>

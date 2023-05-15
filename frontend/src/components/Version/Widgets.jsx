@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getVersionWidgets } from '../../services/version';
 import { Grid, GridHeader, GridItem } from '../Common/Grid';
 import { InteractionEffort } from '../InteractionEffort';
+import { useOutletContext } from 'react-router-dom';
 
 const WidgetType = ({ type }) => {
   const colors = {
@@ -20,12 +21,13 @@ const WidgetType = ({ type }) => {
   );
 };
 
-export const Widgets = ({ versionId }) => {
+export const Widgets = () => {
   const [widgets, setWidgets] = useState([]);
+  const version = useOutletContext();
 
   useEffect(() => {
-    getVersionWidgets(versionId).then((res) => setWidgets(res.data));
-  }, [versionId]);
+    getVersionWidgets(version.id).then((res) => setWidgets(res.data));
+  }, [version.id]);
 
   return (
     <Grid>

@@ -1,34 +1,27 @@
-import { useLoaderData } from 'react-router-dom';
+import { Outlet, useLoaderData } from 'react-router-dom';
 import { PageTitle } from '../components/Common/PageTitle';
 import { Sections } from '../components/Common/Sections';
-import { Setup } from '../components/Version/Setup';
-import { Stats } from '../components/Version/Stats';
-import { UserSessions } from '../components/Version/UserSessions';
-import { Widgets } from '../components/Version/Widgets';
 
 export const VersionPage = () => {
   const version = useLoaderData();
 
-  const mainSections = [
+  const sections = [
     {
       name: 'Stats',
       show: version.user_sessions_count > 0,
-      element: Stats,
-      props: { version },
+      path: 'stats',
     },
     {
       name: 'User Sessions',
       show: version.user_sessions_count > 0,
-      element: UserSessions,
-      props: { versionId: version.id },
+      path: 'user_sessions',
     },
     {
       name: 'Widgets',
       show: version.user_sessions_count > 0,
-      element: Widgets,
-      props: { versionId: version.id },
+      path: 'widgets',
     },
-    { name: 'Setup', show: true, element: Setup, props: { version } },
+    { name: 'Setup', show: true, path: 'setup' },
   ];
 
   return (
@@ -43,10 +36,10 @@ export const VersionPage = () => {
           </div>
         ))}
       </div>
-      <Sections
-        sections={mainSections}
-        defaultSection={version.user_sessions_count > 0 ? 'Stats' : 'Setup'}
-      />
+      <Sections sections={sections} />
+      <div className="w-full">
+        <Outlet context={version} />
+      </div>
     </>
   );
 };
