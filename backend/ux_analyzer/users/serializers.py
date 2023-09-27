@@ -10,3 +10,13 @@ class LoginUserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}
         }
+
+class SignUpUserSerializer(serializers.ModelSerializer):
+    repeat_password = serializers.CharField()
+
+    class Meta:
+        model = User
+        fields = ('name', 'email', 'password')
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }

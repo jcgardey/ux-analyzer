@@ -25,5 +25,10 @@ class GetLoggedUserAPI(APIView):
     def get(self, request):
         return Response({'name': request.user.name})
 
+
+class SignUpUserAPI(APIView):
+
+    def post(self, request):
+        pass
         
         
