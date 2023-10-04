@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'evaluations',
+    'prediction_models',
     'users',
     'knox',
 ]
