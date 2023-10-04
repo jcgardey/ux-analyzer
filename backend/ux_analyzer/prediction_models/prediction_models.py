@@ -51,6 +51,8 @@ class PredictionModels:
             "Anchor": anchor_model   
         }
         pickle.dump(self.models, open( os.path.join(os.path.realpath(os.path.dirname(__file__)),'db/models.pickle'), 'wb')) 
+    
+    def get_widget_model(self, widget_name):
+        return self.models[widget_name]
 
-prediction_models = PredictionModels().models
-#prediction_models.train_models()
+prediction_models = PredictionModels()
