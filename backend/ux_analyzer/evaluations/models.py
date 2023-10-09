@@ -1,6 +1,7 @@
 from django.db import models
 from .micro_measures_grabbers import grabbers
 from users.models import UserProfile
+from django.core.exceptions import ObjectDoesNotExist
 
 from prediction_models.prediction_models import prediction_models
 import numpy as np
@@ -23,16 +24,15 @@ class Version(models.Model):
     def get_user_sessions_count(self):
         return self.user_sessions.all().count()
     
-    def get_widgets(self):
-        widgets = WidgetLog.objects.filter(user_session__version_id=self.id).values('widget_label','widget_url', 'widget_xpath', 'widget_type').distinct()
-        for widget in widgets:
-            widget['user_interaction_effort'] = round(self.get_user_interaction_effort_on_widget(widget['widget_url'], widget['widget_xpath']),1)
-        return widgets
+    def get_widget(self, url, xpath, widgetType, label):
+        try:
+            return self.widgets.get(url=url, xpath= xpath, widget_type=widgetType)
+        except ObjectDoesNotExist:
+            return self.widgets.create(url=url, xpath= xpath, widget_type=widgetType, label=label)
     
-    def get_user_interaction_effort_on_widget(self, widget_url, widget_xpath):
-        widget_logs = WidgetLog.objects.filter(user_session__version=self, widget_url=widget_url, widget_xpath=widget_xpath)
-        return np.mean( np.array([ widget_log.get_user_interaction_effort() for widget_log in widget_logs]) )
-
+    def get_widgets(self):
+        return self.widgets
+    
 class UserSession(models.Model):
 
     version = models.ForeignKey(Version, on_delete=models.CASCADE, related_name='user_sessions')
@@ -43,8 +43,8 @@ class UserSession(models.Model):
     def get_user_interaction_effort(self):
         predictions = np.array([ widget_log.get_user_interaction_effort() for widget_log in self.widget_logs.all() ])
         return np.mean(predictions)
-
-class WidgetLog(models.Model):
+    
+class Widget(models.Model):
     WIDGET_TYPES = [
         ('TextInput', 'TextInput'), 
         ('SelectInput', 'SelectInput'),
@@ -53,16 +53,26 @@ class WidgetLog(models.Model):
         ('DateSelect', 'DateSelect'), 
         ('RadioSet', 'RadioSet'), 
     ]
-    widget_label = models.CharField(max_length=255)
-    widget_xpath = models.CharField(max_length=255)
+    version = models.ForeignKey(Version, on_delete=models.CASCADE, related_name='widgets')
+    label = models.CharField(max_length=255)
+    xpath = models.CharField(max_length=255)
     widget_type = models.CharField(max_length=255, choices=WIDGET_TYPES)
-    widget_url = models.URLField(max_length=255)
-    user_session = models.ForeignKey(UserSession, on_delete=models.CASCADE, related_name='widget_logs')
-    micro_measures = models.JSONField()
+    url = models.URLField(max_length=255)
+    weight = models.IntegerField(default=1)
 
     def get_user_interaction_effort(self):
-        prediction_model = prediction_models.get_widget_model(self.widget_type)
-        micro_measures_normalized = prediction_model.scaler.transform(  np.array(grabbers[self.widget_type].get_measures_for_prediction(self.micro_measures)).reshape(1,-1) )
+        predictions = np.array([ widget_log.get_user_interaction_effort() for widget_log in self.logs.all() ])
+        return np.mean(predictions)
+
+class WidgetLog(models.Model):
+    
+    user_session = models.ForeignKey(UserSession, on_delete=models.CASCADE, related_name='widget_logs')
+    micro_measures = models.JSONField()
+    widget = models.ForeignKey(Widget, on_delete=models.CASCADE, related_name='logs', null=True)
+
+    def get_user_interaction_effort(self):
+        prediction_model = prediction_models.get_widget_model(self.widget.widget_type)
+        micro_measures_normalized = prediction_model.scaler.transform(  np.array(grabbers[self.widget.widget_type].get_measures_for_prediction(self.micro_measures)).reshape(1,-1) )
         return prediction_model.predict( micro_measures_normalized )
 
 

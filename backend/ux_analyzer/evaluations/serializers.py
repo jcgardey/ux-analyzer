@@ -1,15 +1,21 @@
 from rest_framework import serializers
-from .models import Evaluation, WidgetLog, UserSession, Version
+from .models import Evaluation, WidgetLog, UserSession, Version, Widget
 
 class EvaluationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evaluation
         fields = ('id', 'evaluation_name', 'creation_date')
 
+class WidgetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Widget
+        fields = ('widget_type', 'url', 'label', 'xpath', 'weight')
+
 class WidgetLogSerializer(serializers.ModelSerializer):
+    widget = WidgetSerializer()
     class Meta:
         model = WidgetLog
-        fields = ('widget_label','widget_url', 'widget_xpath','widget_type', 'micro_measures')
+        fields = ('micro_measures', 'widget')
 
 class UserSessionSerializer(serializers.ModelSerializer):
     widget_logs = WidgetLogSerializer(many=True)

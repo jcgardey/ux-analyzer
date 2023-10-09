@@ -18,14 +18,13 @@ class CreateUserSessionAPI(APIView):
     }
 
     def post(self, request, token):
-        user_session = Version.objects.get(token=token).user_sessions.create(session_id=request.data['id'], time=timedelta(milliseconds=request.data['time']))
+        version = Version.objects.get(token=token)
+        user_session = version.user_sessions.create(session_id=request.data['id'], time=timedelta(milliseconds=request.data['time']))
         valid_widget_logs = [ widget_log for widget_log in request.data['widget_logs'] if self.grabbers[widget_log['widgetType']].is_log_valid(widget_log) ]
         for widget_log in valid_widget_logs:
+            target_widget = version.get_widget(widget_log['url'], widget_log['xpath'], widget_log['widgetType'], widget_log['label'])
             user_session.widget_logs.create(
-                widget_type=widget_log['widgetType'], 
-                widget_xpath=widget_log['xpath'], 
-                widget_url=widget_log['url'],
-                widget_label=widget_log['label'],
+                widget=target_widget,
                 micro_measures= self.get_micro_measures_from_log(widget_log)
             )
         return Response(UserSessionSerializer(user_session).data, status=status.HTTP_201_CREATED)
