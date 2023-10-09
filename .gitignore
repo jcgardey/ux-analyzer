@@ -1,2 +1,6 @@
 test_pages/node_modules
 *.pyc
+
+backend/ux_analyzer/.cache
+backend/ux_analyzer/.bash_history
+backend/ux_analyzer/.python_history
