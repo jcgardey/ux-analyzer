@@ -7,9 +7,13 @@ class EvaluationSerializer(serializers.ModelSerializer):
         fields = ('id', 'evaluation_name', 'creation_date')
 
 class WidgetSerializer(serializers.ModelSerializer):
+    user_interaction_effort = serializers.SerializerMethodField()
     class Meta:
         model = Widget
-        fields = ('widget_type', 'url', 'label', 'xpath', 'weight')
+        fields = ('id','widget_type', 'url', 'label', 'xpath', 'weight', 'user_interaction_effort')
+    
+    def get_user_interaction_effort(self, widget):
+        return round(widget.get_user_interaction_effort(), 1)
 
 class WidgetLogSerializer(serializers.ModelSerializer):
     widget = WidgetSerializer()

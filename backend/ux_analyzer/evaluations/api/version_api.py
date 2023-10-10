@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from evaluations.models import Evaluation, Version, WidgetLog
-from evaluations.serializers import VersionSerializer
+from evaluations.models import Evaluation, Version
+from evaluations.serializers import VersionSerializer, WidgetSerializer
 
 import random
 import string
@@ -37,10 +37,26 @@ class GetVersionWidgetsAPI(APIView):
     permission_classes = [IsAuthenticated]
     
     def get(self, request, id):
-        return Response(Version.objects.get(pk=id).get_widgets())
+        widgets = Version.objects.get(pk=id).get_widgets()
+        return Response(WidgetSerializer(widgets, many=True).data)
 
 class DeleteVersionAPI(APIView):
     permission_classes = [IsAuthenticated]
     
     def delete(self, request, id):
         return Response(Version.objects.get(pk=id).delete())
+    
+
+class UpdateWidgetsSettingsAPI(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request, id):
+        version = Version.objects.get(pk=id)
+        print(request.data)
+        for widget_data in request.data['widgets']:
+            target_widget = version.widgets.get(pk=widget_data['id'])
+            target_widget.weight = float(widget_data['weight'])
+            target_widget.label = widget_data['label']
+            target_widget.save()
+        return Response({'status': 'ok'}, status=status.HTTP_200_OK)
+        
