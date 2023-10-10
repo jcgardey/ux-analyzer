@@ -58,7 +58,7 @@ class Widget(models.Model):
     xpath = models.CharField(max_length=255)
     widget_type = models.CharField(max_length=255, choices=WIDGET_TYPES)
     url = models.URLField(max_length=255)
-    weight = models.IntegerField(default=1)
+    weight = models.FloatField(default=1)
 
     def get_user_interaction_effort(self):
         predictions = np.array([ widget_log.get_user_interaction_effort() for widget_log in self.logs.all() ])
