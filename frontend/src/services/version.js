@@ -9,3 +9,5 @@ export const getVersionWidgets = (id) => axios.get(`/version/${id}/widgets`);
 
 export const deleteVersion = (id) => axios.delete(`/version/${id}/delete`);
 
+export const updateWidgetsSettings = (id, widgets) =>
+  axios.post(`/version/${id}/widgets/settings`, { widgets });

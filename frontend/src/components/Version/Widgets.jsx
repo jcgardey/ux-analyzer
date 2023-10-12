@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react';
-import { getVersionWidgets } from '../../services/version';
+import {
+  getVersionWidgets,
+  updateWidgetsSettings,
+} from '../../services/version';
 import { Grid, GridHeader, GridItem } from '../Common/Grid';
 import { InteractionEffort } from '../InteractionEffort';
 import { useOutletContext } from 'react-router-dom';
+import { Input } from '../Common/Form';
+import { PrimaryButton } from '../Button/Button';
+import ReactSlider from 'react-slider';
 
 const WidgetType = ({ type }) => {
   const colors = {
@@ -29,30 +35,59 @@ export const Widgets = () => {
     getVersionWidgets(version.id).then((res) => setWidgets(res.data));
   }, [version.id]);
 
+  const updateWidgetWeight = (widgetId, newWeight) => {
+    const widget = widgets.find((widget) => widget.id === widgetId);
+    widget.weight = newWeight;
+    setWidgets([...widgets]);
+  };
+
+  const saveChanges = () => {
+    updateWidgetsSettings(version.id, widgets);
+  };
+
   return (
-    <Grid>
-      <GridHeader>
-        <p className="w-1/3 mx-2">Label</p>
-        <p className="w-1/3 mx-2">Type</p>
-        <p className="w-1/3 mx-2">Interaction Effort</p>
-      </GridHeader>
-      {widgets.map((widget, i) => (
-        <GridItem key={i}>
-          <p className="w-1/3 mx-2">{widget.widget_label}</p>
-          <div className="w-1/3 mx-2">
-            <WidgetType type={widget.widget_type} />
-          </div>
-          <div className="w-1/3 mx-2">
-            <div className="w-10">
-              <InteractionEffort
-                score={widget.user_interaction_effort}
-                className={'text-xl'}
+    <>
+      <Grid>
+        <GridHeader>
+          <p className="w-1/3 mx-2">Label</p>
+          <p className="w-1/3 mx-2">Type</p>
+          <p className="w-1/4 mx-2">Interaction Effort</p>
+          <p className="w-1/5 mx-2">Weight</p>
+        </GridHeader>
+        {widgets.map((widget, i) => (
+          <GridItem key={i}>
+            <p className="w-1/3 mx-2" onClick={() => console.log(widget)}>
+              {widget.label}
+            </p>
+            <div className="w-1/3 mx-2">
+              <WidgetType type={widget.widget_type} />
+            </div>
+            <div className="w-1/4 mx-2">
+              <div className="w-10">
+                <InteractionEffort
+                  score={widget.user_interaction_effort}
+                  className={'text-xl'}
+                />
+              </div>
+            </div>
+            <div className="w-1/5 mx-2">
+              <ReactSlider
+                value={widget.weight}
+                min={1}
+                max={widgets.length}
+                trackClassName="h-5 bg-gray-200"
+                thumbClassName="h-5 w-5 rounded-lg bg-red"
+                onChange={(newValue, index) =>
+                  updateWidgetWeight(widget.id, newValue)
+                }
               />
             </div>
-          </div>
-        </GridItem>
-      ))}
-    </Grid>
+          </GridItem>
+        ))}
+      </Grid>
+      <div className="flex justify-end my-4">
+        <PrimaryButton onClick={saveChanges}>Save Changes</PrimaryButton>
+      </div>
+    </>
   );
 };
-
