@@ -14,7 +14,7 @@ export const EvaluationList = ({ evaluations, onDelete }) => {
       </GridHeader>
       {evaluations.map((evaluation, i) => (
         <a key={i} onClick={() => navigate(`/evaluation/${evaluation.id}`)}>
-          <GridItem>
+          <GridItem className="hover:cursor-pointer">
             <p className="w-1/3 mx-2">{evaluation.evaluation_name}</p>
             <p className="w-1/3 mx-2">
               {new Date(evaluation.creation_date).toLocaleDateString()}
@@ -34,4 +34,3 @@ export const EvaluationList = ({ evaluations, onDelete }) => {
     </Grid>
   );
 };
-
