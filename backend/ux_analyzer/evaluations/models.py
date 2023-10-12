@@ -41,8 +41,11 @@ class UserSession(models.Model):
     session_id = models.CharField(max_length=50)
     
     def get_user_interaction_effort(self):
+        if self.widget_logs.count() == 0:
+            return None
         predictions = np.array([ widget_log.get_user_interaction_effort() for widget_log in self.widget_logs.all() ])
-        return np.mean(predictions)
+        widget_weights = list(map(lambda widget_log: widget_log.widget.weight, self.widget_logs.all()))
+        return np.average(predictions.reshape(-1), weights=widget_weights)
     
 class Widget(models.Model):
     WIDGET_TYPES = [
@@ -61,6 +64,8 @@ class Widget(models.Model):
     weight = models.FloatField(default=1)
 
     def get_user_interaction_effort(self):
+        if self.logs.count() == 0:
+            return None
         predictions = np.array([ widget_log.get_user_interaction_effort() for widget_log in self.logs.all() ])
         return np.mean(predictions)
 
