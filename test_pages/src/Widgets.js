@@ -18,6 +18,7 @@ export const Widgets = ({ onSubmit, onError }) => {
   return (
     <div className="container">
       <div className="col-4">
+        <h2 style={{ textAlign: 'center' }}>Informaci&oacute;n Personal</h2>
         <form onSubmit={handleSubmit(onSubmit, onError)}>
           <Input
             name={'name'}
@@ -26,12 +27,13 @@ export const Widgets = ({ onSubmit, onError }) => {
             rules={{ required: true }}
             errors={errors.name}
           />
+          {/* 
           <Input
             name={'surname'}
             label={'Apellido'}
             register={register}
             errors={errors.surname}
-          />
+          /> */}
           <Select
             name={'city'}
             label={'Ciudad'}
@@ -41,6 +43,7 @@ export const Widgets = ({ onSubmit, onError }) => {
             errors={errors.city}
             options={['La Plata', 'Buenos Aires', 'Mar del Plata']}
           />
+
           <RadioSet
             label={'Genero'}
             name={'genre'}
@@ -58,12 +61,13 @@ export const Widgets = ({ onSubmit, onError }) => {
             rules={{ required: true }}
             errors={errors}
           />
+          {/* 
           <Datepicker
             label={'Fecha de Inicio'}
             name={'start'}
             register={register}
             errors={errors.start}
-          />
+          /> */}
           <div className="form-field">
             <button type="submit">Enviar</button>
           </div>

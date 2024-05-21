@@ -12,16 +12,19 @@ import ReactSlider from 'react-slider';
 
 const WidgetType = ({ type }) => {
   const colors = {
-    TextInput: 'bg-blue-600',
-    SelectInput: 'bg-green-600',
-    Anchor: 'bg-red-600',
-    Datepicker: 'bg-orange-600',
-    DateSelect: 'bg-yellow-600',
-    RadioSet: 'bg-teal-900',
+    TextInput: 'rgb(37 99 235)',
+    SelectInput: 'rgb(22 163 74)',
+    Anchor: 'rgb(220 38 38)',
+    Datepicker: 'rgb(234 88 12)',
+    DateSelect: 'rgb(202 138 4)',
+    RadioSet: 'rgb(13 148 136)',
   };
 
   return (
-    <span className={`text-white font-semibold rounded-lg p-2 ${colors[type]}`}>
+    <span
+      className={'text-white font-semibold rounded-lg p-2'}
+      style={{ backgroundColor: colors[type] }}
+    >
       {type}
     </span>
   );

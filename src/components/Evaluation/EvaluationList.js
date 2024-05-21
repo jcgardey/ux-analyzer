@@ -1,5 +1,5 @@
 import { Grid, GridHeader, GridItem } from '../Common/Grid';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { DeleteButton, EditButton } from '../Button/Button';
 
 export const EvaluationList = ({ evaluations, onDelete }) => {
@@ -13,8 +13,11 @@ export const EvaluationList = ({ evaluations, onDelete }) => {
         <div className="w-1/3"></div>
       </GridHeader>
       {evaluations.map((evaluation, i) => (
-        <a key={i} onClick={() => navigate(`/evaluation/${evaluation.id}`)}>
-          <GridItem className="hover:cursor-pointer">
+        <Link
+          to={`/evaluation/${evaluation.id}`}
+          className="hover:cursor-pointer"
+        >
+          <GridItem>
             <p className="w-1/3 mx-2">{evaluation.evaluation_name}</p>
             <p className="w-1/3 mx-2">
               {new Date(evaluation.creation_date).toLocaleDateString()}
@@ -29,7 +32,7 @@ export const EvaluationList = ({ evaluations, onDelete }) => {
               />
             </div>
           </GridItem>
-        </a>
+        </Link>
       ))}
     </Grid>
   );
