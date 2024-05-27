@@ -1,2 +1,2 @@
 #!/bin/sh
-serve -s dist
+serve -s build
