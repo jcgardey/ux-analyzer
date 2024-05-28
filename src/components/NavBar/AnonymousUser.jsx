@@ -28,10 +28,9 @@ export const AnonymousUser = () => {
       )}
       {showSignUp && (
         <Modal handleClose={() => setShowSignUp(false)} title="Sign Up">
-          <SignUp />
+          <SignUp onFinish={() => setShowSignUp(false)} />
         </Modal>
       )}
     </>
   );
 };
-

@@ -1,18 +1,27 @@
 import { useForm } from 'react-hook-form';
 import { FieldError, Input, Label } from '../Common/Form';
 import { PrimaryButton } from '../Button/Button';
+import { signUpUser } from '../../services/user';
 
-export const SignUp = () => {
+export const SignUp = ({ onFinish }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    signUpUser(data)
+      .then((response) => {
+        onFinish();
+      })
+      .catch((error) => {
+        if (error.response?.data.email) {
+          setError('email', { type: 'already_exists' });
+        }
+      });
   };
-  console.log(errors);
 
   return (
     <div className="my-4 w-3/4 mx-auto p-4">
@@ -35,6 +44,9 @@ export const SignUp = () => {
           )}
           {errors.email?.type === 'pattern' && (
             <FieldError>Invalid email address</FieldError>
+          )}
+          {errors.email?.type === 'already_exists' && (
+            <FieldError>User with this email already exists</FieldError>
           )}
         </div>
         <div className="my-4">
@@ -65,4 +77,3 @@ export const SignUp = () => {
     </div>
   );
 };
-
