@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:  
+  name: ux-analyzer
+spec:
+  ports:    
+    - name: ux-analyzer
+      protocol: TCP
+      port: 3000
+      targetPort: 3000    
+  selector:
+    app: ux-analyzer

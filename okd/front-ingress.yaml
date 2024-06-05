@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ux-analyzer
+spec:
+  rules:
+    - host: ux-analyzer.okd.lifia.info.unlp.edu.ar
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: ux-analyzer
+              servicePort: 3000

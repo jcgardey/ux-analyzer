@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ux-analyzer
+  name: ux-analyzer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+     app: ux-analyzer        
+  template:
+    metadata:            
+      labels:
+        app: ux-analyzer        
+    spec:
+      containers:
+        - name: ux-analyzer
+          image: jcgardey/ux-analyzer:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          
