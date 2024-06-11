@@ -7,8 +7,9 @@ import { Grid, GridHeader, GridItem } from '../Common/Grid';
 import { InteractionEffort } from '../InteractionEffort';
 import { useOutletContext } from 'react-router-dom';
 import { Input } from '../Common/Form';
-import { PrimaryButton } from '../Button/Button';
+import { EditButton, PrimaryButton } from '../Button/Button';
 import ReactSlider from 'react-slider';
+import { WidgetModal } from './WidgetModal';
 
 const WidgetType = ({ type }) => {
   const colors = {
@@ -33,6 +34,17 @@ const WidgetType = ({ type }) => {
 export const Widgets = () => {
   const [widgets, setWidgets] = useState([]);
   const version = useOutletContext();
+
+  const [selectedWidget, setSelectedWidget] = useState(null);
+
+  const closeWidgetModal = () => setSelectedWidget(null);
+
+  const onEditWidget = ({ id, label }) => {
+    const widget = widgets.find((w) => w.id === id);
+    widget.label = label;
+    setWidgets([...widgets]);
+    closeWidgetModal();
+  };
 
   useEffect(() => {
     getVersionWidgets(version.id).then((res) => setWidgets(res.data));
@@ -59,9 +71,10 @@ export const Widgets = () => {
         </GridHeader>
         {widgets.map((widget, i) => (
           <GridItem key={i}>
-            <p className="w-1/3 mx-2" onClick={() => console.log(widget)}>
-              {widget.label}
-            </p>
+            <div className="w-1/3 mx-2 flex items-center">
+              <p>{widget.label || '----'}</p>
+              <EditButton onClick={() => setSelectedWidget(widget)} />
+            </div>
             <div className="w-1/3 mx-2">
               <WidgetType type={widget.widget_type} />
             </div>
@@ -91,6 +104,13 @@ export const Widgets = () => {
       <div className="flex justify-end my-4">
         <PrimaryButton onClick={saveChanges}>Save Changes</PrimaryButton>
       </div>
+      {selectedWidget && (
+        <WidgetModal
+          widget={selectedWidget}
+          onClose={closeWidgetModal}
+          onAccept={onEditWidget}
+        />
+      )}
     </>
   );
 };
