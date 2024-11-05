@@ -1,25 +1,16 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
+  darkMode: ['class'],
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    fontFamily: {
-      sans: ['Fira Sans', ...defaultTheme.fontFamily.sans],
-      serif: [...defaultTheme.fontFamily.serif],
-      mono: [...defaultTheme.fontFamily.mono],
-    },
     extend: {
-      colors: {
-        yellow: '#FFE15D',
-        orange: '#F49D1A',
-        red: '#DC3535',
-        grey: '#f5f5f5',
-        lightred: '#c76969',
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
+      colors: {},
     },
   },
-
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 };
-
