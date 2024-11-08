@@ -20,7 +20,7 @@ export const LoggedUser = () => {
     logout().then(() => {
       localStorage.removeItem('token');
       queryClient.invalidateQueries({ queryKey: ['user'] });
-      queryClient.setQueryData(['user'], undefined);
+      queryClient.setQueryData(['user'], null);
       navigate('/');
     });
   };
