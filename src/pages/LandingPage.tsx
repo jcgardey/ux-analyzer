@@ -1,7 +1,10 @@
-import user from '../media/user.png';
+import userLogo from '../media/user.png';
 import effort from '../media/effort.png';
 import alternatives from '../media/alternatives.png';
 import improve from '../media/improve.png';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '@/context/UserContext';
 
 interface CardProps {
   text: string;
@@ -16,6 +19,17 @@ const Card = ({ img, text }: CardProps) => (
 );
 
 export const LandingPage = () => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/evaluations');
+    }
+  }, [user, navigate]);
+
+  console.log('user ', user);
+
   return (
     <div>
       <div className="flex items-center justify-evenly">
@@ -26,7 +40,7 @@ export const LandingPage = () => {
           </h1>
         </div>
         <div>
-          <img src={user} alt="User interacting" />
+          <img src={userLogo} alt="User interacting" />
         </div>
       </div>
       <div className="flex justify-evenly my-8 mx-4">

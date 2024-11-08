@@ -6,5 +6,6 @@ export const useLoggedUser = () => {
     queryKey: ['user'],
     queryFn: getLoggedUser,
     enabled: localStorage.getItem('token') !== null,
+    retry: false,
   });
 };

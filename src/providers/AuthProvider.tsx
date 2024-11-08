@@ -1,6 +1,6 @@
-import { Spinner } from '@/components/Common/Spinner/Spinner';
 import { UserContext } from '@/context/UserContext';
 import { useLoggedUser } from '@/hooks/users/useLoggedUser';
+import { LoadingPage } from '@/pages/LoadingPage';
 import React, { useEffect } from 'react';
 
 interface AuthProviderProps {
@@ -17,7 +17,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [isError]);
 
   if (isFetching) {
-    return <Spinner />;
+    return <LoadingPage />;
   }
 
   return (
