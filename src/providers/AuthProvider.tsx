@@ -1,4 +1,4 @@
-import { Spinner } from '@/components/common/Spinner/Spinner';
+import { Spinner } from '@/components/Common/Spinner/Spinner';
 import { UserContext } from '@/context/UserContext';
 import { useLoggedUser } from '@/hooks/users/useLoggedUser';
 import React, { useEffect } from 'react';

@@ -1,4 +1,4 @@
-import { UABreadCrumbItem } from '@/components/common/UABreadcrumb/UABreadCrumb';
+import { UABreadCrumbItem } from '@/components/Common/UABreadcrumb/UABreadCrumb';
 import { Evaluation } from '@/types/common';
 
 export const buildEvaluationBreadcrumbItems = (

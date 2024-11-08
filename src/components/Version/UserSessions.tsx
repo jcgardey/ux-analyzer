@@ -1,10 +1,10 @@
 import { useOutletContext } from 'react-router-dom';
-import { Grid, GridHeader, GridItem } from '../common/Grid/Grid';
-import { InteractionEffort } from '../common/InteractionEffort/InteractionEffort';
 import { Version } from '@/types/common';
 import { useVersionUserSessions } from '@/hooks/versions/useVersionUserSessions';
-import { Spinner } from '../common/Spinner/Spinner';
 import dayjs from 'dayjs';
+import { Grid, GridHeader, GridItem } from '../Common/Grid/Grid';
+import { InteractionEffort } from '../Common/InteractionEffort/InteractionEffort';
+import { Spinner } from '../Common/Spinner/Spinner';
 
 export const UserSessions = () => {
   const version = useOutletContext() as Version;

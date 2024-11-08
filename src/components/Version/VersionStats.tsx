@@ -1,6 +1,6 @@
 import { Version } from '@/types/common';
 import { useOutletContext } from 'react-router-dom';
-import { InteractionEffort } from '../common/InteractionEffort/InteractionEffort';
+import { InteractionEffort } from '../Common/InteractionEffort/InteractionEffort';
 import { useRefreshUserInteractionEffort } from '@/hooks/versions/useRefreshUserInteractionEffort';
 import { ReloadIcon } from '@radix-ui/react-icons';
 import { Button } from '../ui/button';

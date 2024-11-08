@@ -3,7 +3,7 @@ import { Version } from '@/types/common';
 import { Button } from '../ui/button';
 import { EyeOpenIcon, Pencil1Icon, TrashIcon } from '@radix-ui/react-icons';
 import { useCallback } from 'react';
-import { InteractionEffort } from '../common/InteractionEffort/InteractionEffort';
+import { InteractionEffort } from '../Common/InteractionEffort/InteractionEffort';
 import { useDeleteVersion } from '@/hooks/versions/useDeleteVersion';
 
 interface VersionItemProps {

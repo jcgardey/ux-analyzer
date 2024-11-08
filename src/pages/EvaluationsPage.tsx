@@ -1,4 +1,4 @@
-import { Text } from '@/components/common/Text/Text';
+import { Text } from '@/components/Common/Text/Text';
 import { EditEvaluationForm } from '@/components/Evaluations/EditEvaluationForm';
 import { EvaluationList } from '@/components/Evaluations/EvaluationList';
 import { Button } from '@/components/ui/button';

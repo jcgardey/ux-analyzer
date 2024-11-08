@@ -1,4 +1,4 @@
-import { UABreadCrumbItem } from '@/components/common/UABreadcrumb/UABreadCrumb';
+import { UABreadCrumbItem } from '@/components/Common/UABreadcrumb/UABreadCrumb';
 import { Version } from '@/types/common';
 import { buildEvaluationBreadcrumbItems } from '../EvaluationPage/breadcrumb';
 

@@ -1,7 +1,7 @@
 import { UXButton } from '@/components/Button/UXButton';
-import { Spinner } from '@/components/common/Spinner/Spinner';
-import { Text } from '@/components/common/Text/Text';
-import { UABreadCrumb } from '@/components/common/UABreadcrumb/UABreadCrumb';
+import { Spinner } from '@/components/Common/Spinner/Spinner';
+import { Text } from '@/components/Common/Text/Text';
+import { UABreadCrumb } from '@/components/Common/UABreadcrumb/UABreadCrumb';
 import { EditVersionForm } from '@/components/Evaluation/EditVersionForm';
 import { VersionList } from '@/components/Evaluation/VersionList';
 import {
@@ -13,10 +13,7 @@ import {
 import { useEvaluation } from '@/hooks/evaluations/useEvaluation';
 import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  buildBreadCrumbItems,
-  buildEvaluationBreadcrumbItems,
-} from './breadcrumb';
+import { buildEvaluationBreadcrumbItems } from './breadcrumb';
 import { Evaluation } from '@/types/common';
 
 export const EvaluationPage = () => {

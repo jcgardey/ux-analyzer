@@ -3,16 +3,16 @@ import { useOutletContext } from 'react-router-dom';
 import { WidgetModal } from './WidgetModal';
 import { useVersionWidgets } from '@/hooks/versions/useVersionWidgets';
 import { Version, Widget } from '@/types/common';
-import { Grid, GridHeader, GridItem } from '../common/Grid/Grid';
-import { InteractionEffort } from '../common/InteractionEffort/InteractionEffort';
 import { UXButton } from '../Button/UXButton';
 import { WidgetType } from './WidgetType';
-import { Spinner } from '../common/Spinner/Spinner';
+import { Spinner } from '../Common/Spinner/Spinner';
 import { useQueryClient } from '@tanstack/react-query';
 import { Slider } from '../ui/slider';
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import { Button } from '../ui/button';
 import { useUpdateWidgetSettings } from '@/hooks/versions/useUpdateWidgetSettings';
+import { Grid, GridHeader, GridItem } from '../Common/Grid/Grid';
+import { InteractionEffort } from '../Common/InteractionEffort/InteractionEffort';
 
 export const Widgets = () => {
   const version = useOutletContext() as Version;

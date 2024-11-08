@@ -1,12 +1,12 @@
-import { Spinner } from '@/components/common/Spinner/Spinner';
-import { Tabs } from '@/components/common/Tabs/Tabs';
-import { Text } from '@/components/common/Text/Text';
+import { Spinner } from '@/components/Common/Spinner/Spinner';
+import { Tabs } from '@/components/Common/Tabs/Tabs';
+import { Text } from '@/components/Common/Text/Text';
 import { useVersion } from '@/hooks/versions/useVersion';
 import { Outlet, useParams } from 'react-router-dom';
 import { buildTabs } from './tabs';
 import { Version } from '@/types/common';
 import { buildVersionBreadcrumbItems } from './breadcrumb';
-import { UABreadCrumb } from '@/components/common/UABreadcrumb/UABreadCrumb';
+import { UABreadCrumb } from '@/components/Common/UABreadcrumb/UABreadCrumb';
 import { buttonVariants } from '@/components/ui/button';
 
 export const VersionPage = () => {

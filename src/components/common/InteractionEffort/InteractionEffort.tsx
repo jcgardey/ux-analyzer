@@ -3,11 +3,15 @@ interface InteractionEffortProps {
   className: string;
 }
 
+interface Colors {
+  [key: number]: string;
+}
+
 export const InteractionEffort: React.FC<InteractionEffortProps> = ({
   className,
   score,
 }) => {
-  const colors = {
+  const colors: Colors = {
     1: '#16a34a',
     2: '#ca8b04',
     3: '#ea5a0c',

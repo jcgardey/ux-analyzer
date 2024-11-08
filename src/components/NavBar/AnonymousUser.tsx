@@ -1,12 +1,7 @@
 import { Button } from '../ui/button';
 import { Login } from '../Login/Login';
 import { SignUp } from '../SignUp/SignUp';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from '../ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 import { DialogTitle } from '@radix-ui/react-dialog';
 
 export const AnonymousUser = () => {

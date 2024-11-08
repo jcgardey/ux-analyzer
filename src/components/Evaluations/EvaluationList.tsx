@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Evaluation } from '@/types/common';
-import { Grid, GridHeader, GridItem } from '../common/Grid/Grid';
+import { Grid, GridHeader, GridItem } from '../Common/Grid/Grid';
 import { Button } from '../ui/button';
 import { EyeOpenIcon, Pencil1Icon, TrashIcon } from '@radix-ui/react-icons';
 import { useCallback } from 'react';
