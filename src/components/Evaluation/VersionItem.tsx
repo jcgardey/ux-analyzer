@@ -1,10 +1,18 @@
 import { Link } from 'react-router-dom';
 import { Version } from '@/types/common';
 import { Button } from '../ui/button';
-import { EyeOpenIcon, Pencil1Icon, TrashIcon } from '@radix-ui/react-icons';
+import {
+  DownloadIcon,
+  EyeOpenIcon,
+  Pencil1Icon,
+  ReloadIcon,
+  TrashIcon,
+} from '@radix-ui/react-icons';
 import { useCallback } from 'react';
 import { InteractionEffort } from '../Common/InteractionEffort/InteractionEffort';
 import { useDeleteVersion } from '@/hooks/versions/useDeleteVersion';
+import { downloadFile } from '@/utils/file';
+import { useExportVersion } from '@/hooks/versions/useExportVersion';
 
 interface VersionItemProps {
   version: Version;
@@ -13,9 +21,19 @@ interface VersionItemProps {
 export const VersionItem: React.FC<VersionItemProps> = ({ version }) => {
   const deleteVersion = useDeleteVersion();
 
+  const exportVersion = useExportVersion();
+
   const handleDelete = useCallback(() => {
     deleteVersion.mutate(version.id);
   }, [deleteVersion, version]);
+
+  const handleDownload = useCallback(() => {
+    exportVersion.mutate(version.id, {
+      onSuccess: (data) => {
+        downloadFile(`${version.version_name}.json`, data);
+      },
+    });
+  }, [version, exportVersion]);
 
   return (
     <div className="flex items-center my-4 rounded border drop-shadow-lg p-1.5 bg-gray-100 hover:cursor-pointer hover:bg-gray-200">
@@ -52,6 +70,17 @@ export const VersionItem: React.FC<VersionItemProps> = ({ version }) => {
         </Link>
         <Button variant="outline">
           <Pencil1Icon />
+        </Button>
+        <Button
+          variant="outline"
+          disabled={exportVersion.isPending}
+          onClick={handleDownload}
+        >
+          {exportVersion.isPending ? (
+            <ReloadIcon className="animate-spin" />
+          ) : (
+            <DownloadIcon />
+          )}
         </Button>
         <Button variant="destructive" onClick={handleDelete}>
           <TrashIcon />

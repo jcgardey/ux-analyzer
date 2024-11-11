@@ -47,3 +47,8 @@ export interface Widget {
   xpath: string;
   weight: number;
 }
+
+export interface VersionWithUserSessions {
+  version_name: string;
+  user_sessions: UserSession[];
+}

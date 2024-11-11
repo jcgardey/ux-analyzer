@@ -1,4 +1,9 @@
-import { UserSession, Version, Widget } from '@/types/common';
+import {
+  UserSession,
+  Version,
+  VersionWithUserSessions,
+  Widget,
+} from '@/types/common';
 import api, { SuccessResponse } from './api';
 
 interface CreateVersionParams {
@@ -46,4 +51,9 @@ export const refreshUserInteractionEffort = (
 ): Promise<Version> =>
   api
     .post(`/version/${params.versionId}/refresh_user_interaction_effort`)
+    .then((response) => response.data);
+
+export const exportVersion = (versionId: number): Promise<Blob> =>
+  api
+    .get(`/version/${versionId}/export`, { responseType: 'blob' })
     .then((response) => response.data);
