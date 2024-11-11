@@ -1,9 +1,4 @@
-import {
-  UserSession,
-  Version,
-  VersionWithUserSessions,
-  Widget,
-} from '@/types/common';
+import { UserSession, Version, Widget } from '@/types/common';
 import api, { SuccessResponse } from './api';
 
 interface CreateVersionParams {
