@@ -46,6 +46,7 @@ export interface Widget {
   url: string;
   xpath: string;
   weight: number;
+  disabled: boolean;
 }
 
 export interface VersionWithUserSessions {

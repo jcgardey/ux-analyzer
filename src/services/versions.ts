@@ -16,6 +16,11 @@ interface RefreshUserInteractionEffortParams {
   versionId: number;
 }
 
+interface JoinWidgetsParams {
+  versionId: number;
+  widgetIds: number[];
+}
+
 export const createVersion = (params: CreateVersionParams): Promise<Version> =>
   api.post(`/evaluation/${params.evaluationId}/version/new`, {
     name: params.name,
@@ -51,4 +56,13 @@ export const refreshUserInteractionEffort = (
 export const exportVersion = (versionId: number): Promise<Blob> =>
   api
     .get(`/version/${versionId}/export`, { responseType: 'blob' })
+    .then((response) => response.data);
+
+export const joinWidgets = (
+  params: JoinWidgetsParams
+): Promise<SuccessResponse> =>
+  api
+    .post(`/version/${params.versionId}/join_widgets`, {
+      widgetIds: params.widgetIds,
+    })
     .then((response) => response.data);

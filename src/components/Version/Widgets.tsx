@@ -13,6 +13,9 @@ import { Button } from '../ui/button';
 import { useUpdateWidgetSettings } from '@/hooks/versions/useUpdateWidgetSettings';
 import { Grid, GridHeader, GridItem } from '../Common/Grid/Grid';
 import { InteractionEffort } from '../Common/InteractionEffort/InteractionEffort';
+import { Switch } from '../ui/switch';
+import { Checkbox } from '../ui/checkbox';
+import { useMergeWidgets } from '@/hooks/versions/useMergeWidgets';
 
 export const Widgets = () => {
   const version = useOutletContext() as Version;
@@ -23,13 +26,17 @@ export const Widgets = () => {
 
   const [selectedWidget, setSelectedWidget] = useState<Widget | null>(null);
   const [weights, setWeights] = useState<number[]>([]);
+  const [disabled, setDisabled] = useState<boolean[]>([]);
+  const [selectedWidgetIds, setSelectedWidgetIds] = useState<number[]>([]);
 
   const updateWidgetSettings = useUpdateWidgetSettings();
+  const mergeWidgets = useMergeWidgets();
 
   const closeWidgetModal = () => setSelectedWidget(null);
 
   useEffect(() => {
     setWeights(widgets?.map((w) => w.weight) ?? []);
+    setDisabled(widgets?.map((w) => w.disabled) ?? []);
   }, [widgets]);
 
   const onEditWidget = useCallback(
@@ -52,12 +59,43 @@ export const Widgets = () => {
     }
   };
 
+  const updateWidgetStatus = (index: number) => {
+    disabled[index] = !disabled[index];
+    setDisabled([...disabled]);
+  };
+
+  const handleCheckChange = (checked: boolean | string, id: number) => {
+    setSelectedWidgetIds(
+      checked
+        ? [...selectedWidgetIds, id]
+        : selectedWidgetIds.filter((i) => i !== id)
+    );
+  };
+
   const saveChanges = () => {
     updateWidgetSettings.mutate({
       versionId: version.id,
       widgets:
-        widgets?.map((widget, i) => ({ ...widget, weight: weights[i] })) ?? [],
+        widgets?.map((widget, i) => ({
+          ...widget,
+          weight: weights[i],
+          disabled: disabled[i],
+        })) ?? [],
     });
+  };
+
+  const handleMergeWidgets = () => {
+    mergeWidgets.mutate(
+      {
+        versionId: version.id,
+        widgetIds: selectedWidgetIds,
+      },
+      {
+        onSuccess: () => {
+          setSelectedWidgetIds([]);
+        },
+      }
+    );
   };
 
   if (isPending) {
@@ -66,16 +104,34 @@ export const Widgets = () => {
 
   return (
     <>
+      {selectedWidgetIds.length > 1 && (
+        <UXButton
+          loading={mergeWidgets.isPending}
+          disabled={mergeWidgets.isPending}
+          className="my-2"
+          onClick={handleMergeWidgets}
+        >
+          Join widgets
+        </UXButton>
+      )}
       <Grid>
         <GridHeader>
+          <p className="w-1/12"></p>
           <p className="w-1/3 mx-2">Label</p>
           <p className="w-1/3 mx-2">Type</p>
           <p className="w-1/4 mx-2">Interaction Effort</p>
-          <p className="w-1/5 mx-2">Weight</p>
+          <p className="w-1/4 mx-2">Weight</p>
+          <p className="w-1/6"></p>
         </GridHeader>
         {(widgets ?? []).map((widget, i) => (
           <GridItem key={i}>
-            <div className="w-1/3 mx-2 flex items-center">
+            <div className="w-1/12 flex justify-center">
+              <Checkbox
+                onCheckedChange={(e) => handleCheckChange(e, widget.id)}
+                checked={selectedWidgetIds.includes(widget.id)}
+              />
+            </div>
+            <div className="w-1/3 mx-2 gap-2 flex items-center">
               <p>{widget.label || '----'}</p>
               <Button variant="ghost" onClick={() => setSelectedWidget(widget)}>
                 <Pencil1Icon />
@@ -92,7 +148,7 @@ export const Widgets = () => {
                 />
               </div>
             </div>
-            <div className="w-1/5 mx-2">
+            <div className="w-1/4 mx-2">
               <Slider
                 value={[weights[i]]}
                 min={1}
@@ -100,6 +156,12 @@ export const Widgets = () => {
                 onValueChange={(newValue) =>
                   updateWidgetWeight(widget, newValue)
                 }
+              />
+            </div>
+            <div className="w-1/6 flex justify-center items-center">
+              <Switch
+                checked={!disabled[i]}
+                onCheckedChange={() => updateWidgetStatus(i)}
               />
             </div>
           </GridItem>
